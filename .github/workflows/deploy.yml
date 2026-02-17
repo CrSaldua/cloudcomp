@@ -3,7 +3,7 @@ name: NBA Oracle Web Deployment
 on:
   push:
     branches:
-      - main  # This triggers the deploy every time you "Commit" to the main branch
+      - main
 
 jobs:
   deploy:
@@ -11,14 +11,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Log in to Azure
-        uses: azure/login@v1
-        with:
-          # This uses the Connection String secret you saved earlier
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-        # NOTE: If you used the "Connection String" method exclusively, 
-        # you can skip the 'azure/login' step and use the CLI directly below.
 
       - name: Upload to Static Website
         uses: azure/CLI@v1
