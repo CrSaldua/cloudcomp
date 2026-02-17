@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --text: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 8rem;
+            margin: 0;
+            font-weight: 900;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, background-color 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .ghost {
+            font-size: 5rem;
+            animation: float 3s ease-in-out infinite;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="ghost">👻</span>
+        <h1>404</h1>
+        <p>Oops! The page you're looking for has vanished into the digital void.</p>
+        <a href="/" class="btn">Take Me Home</a>
+    </div>
+
+</body>
+</html>
