@@ -359,7 +359,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: start; /* Align to top */
+            align-items: start;
         }
         .conference-card {
             background-color: var(--bg-card);
@@ -368,17 +368,17 @@
             border: 1px solid #333;
         }
         
-        /* Updated Header for Alignment */
+        /* HEADER ALIGNMENT FIX */
         .card-header-conf {
             display: flex;
             align-items: center; /* Vertical Center */
-            height: 50px;       /* Fixed Height */
+            height: 50px;       /* Fixed Height ensures alignment */
             padding: 0 15px;
             font-size: 18px;
             font-weight: 700;
             text-transform: uppercase;
             border-bottom: 1px solid #333;
-            white-space: nowrap; /* Prevent wrapping */
+            white-space: nowrap; /* Prevent wrapping so height stays fixed */
             overflow: hidden;
             text-overflow: ellipsis;
         }
