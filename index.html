@@ -398,9 +398,9 @@
         .team-stats { text-align: right; font-size: 11px; color: #888; }
 
 
-        /* --- NEW GAMES TAB STYLES --- */
+        /* --- GAMES TAB STYLES --- */
         #games-content {
-            display: none; /* Hidden by default */
+            display: none;
         }
         
         .games-header {
@@ -415,7 +415,6 @@
             align-items: center;
         }
 
-        /* Matchup Row Container */
         .matchup-container {
             background-color: white;
             border-radius: 4px;
@@ -425,7 +424,6 @@
             overflow: hidden;
         }
 
-        /* Left: Matchup Block */
         .matchup-block {
             padding: 20px;
             flex: 1;
@@ -445,9 +443,7 @@
         .team-display span { font-weight: 700; font-size: 13px; }
         .team-display small { font-size: 11px; color: #666; }
 
-        .game-time-center {
-            text-align: center;
-        }
+        .game-time-center { text-align: center; }
         .game-time-val { font-size: 22px; font-weight: 900; display: block; }
         .game-date-val { font-size: 12px; color: #555; }
         
@@ -471,7 +467,6 @@
         }
         .match-btn:hover { background: #f9f9f9; }
 
-        /* Middle: Season Leaders */
         .leaders-block {
             padding: 15px 20px;
             flex: 1.2;
@@ -515,7 +510,6 @@
             color: #333;
         }
 
-        /* Right: League Pass */
         .lp-block {
             width: 100px;
             display: flex;
@@ -524,6 +518,111 @@
             background-color: #fcfcfc;
         }
         .lp-logo-small { height: 20px; }
+
+        /* --- STATS TAB STYLES --- */
+        #stats-content {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        
+        .stats-main-header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .stats-h1 { font-size: 28px; font-weight: 900; margin: 0; text-transform: uppercase; font-family: 'Roboto Condensed', sans-serif; }
+        .stats-sub { font-size: 12px; color: #aaa; }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .stat-tab {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #555;
+        }
+        .stat-tab.active {
+            background-color: #222;
+            color: white;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .stat-grid-3x3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background-color: white;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .stat-box-title {
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .stat-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #f9f9f9;
+            padding-bottom: 4px;
+        }
+        .stat-rank { color: #888; font-size: 11px; width: 15px; }
+        .stat-p-name { font-weight: 600; }
+        .stat-p-team { color: #999; font-size: 10px; margin-left: 3px; }
+        .stat-val { font-weight: 900; }
+
+        /* Sidebar stats */
+        .sidebar-stat-card {
+            background: white;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .dunk-score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        .dunk-val { font-weight: 900; color: #333; }
+        .more-stats-header {
+            color: var(--nba-blue);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
 
     </style>
 </head>
@@ -535,7 +634,7 @@
         </a>
         <div class="nav-links">
             <a class="nav-link" onclick="showGames()">GAMES</a>
-            <a class="nav-link">STATS</a> 
+            <a class="nav-link" onclick="showStats()">STATS</a> 
             <a class="nav-link" onclick="showPredictions()">PREDICTION</a>
             <a class="nav-link">TEAMS</a>
         </div>
@@ -818,7 +917,6 @@
             
             <div class="home-grid">
                 <div class="main-column">
-                    
                     <div class="matchup-container">
                         <div class="matchup-block">
                              <div class="team-display">
@@ -854,112 +952,7 @@
                         <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
                     </div>
 
-                     <div class="matchup-container">
-                        <div class="matchup-block">
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg">
-                                <span>Nets</span> <small>15-38</small>
-                             </div>
-                             <div class="game-time-center">
-                                 <span class="game-date-val">Fri 20 Feb</span>
-                                 <span class="game-time-val">8:00 AM PHT</span>
-                                 <div class="matchup-buttons">
-                                     <div class="match-btn">Preview</div>
-                                     <div class="match-btn">Tickets</div>
-                                 </div>
-                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
-                             </div>
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg">
-                                <span>Cavaliers</span> <small>34-21</small>
-                             </div>
-                        </div>
-                        <div class="leaders-block">
-                            <div class="leaders-title">SEASON LEADERS</div>
-                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1629008.png" class="player-img"> <div class="player-info"><span class="player-name">Michael Porter Jr.</span><span class="player-team">BKN | #17 | F</span></div>
-                                <div class="player-stats"><span>25.0</span> <span>7.2</span> <span>3.2</span></div>
-                            </div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1628378.png" class="player-img"> <div class="player-info"><span class="player-name">Donovan Mitchell</span><span class="player-team">CLE | #45 | G</span></div>
-                                <div class="player-stats"><span>29.0</span> <span>4.5</span> <span>5.9</span></div>
-                            </div>
-                        </div>
-                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
-                    </div>
-
-                    <div class="matchup-container">
-                        <div class="matchup-block">
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg">
-                                <span>Hawks</span> <small>26-30</small>
-                             </div>
-                             <div class="game-time-center">
-                                 <span class="game-date-val">Fri 20 Feb</span>
-                                 <span class="game-time-val">8:00 AM PHT</span>
-                                 <div class="matchup-buttons">
-                                     <div class="match-btn">Preview</div>
-                                     <div class="match-btn">Tickets</div>
-                                 </div>
-                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
-                             </div>
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg">
-                                <span>76ers</span> <small>30-24</small>
-                             </div>
-                        </div>
-                        <div class="leaders-block">
-                            <div class="leaders-title">SEASON LEADERS</div>
-                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630552.png" class="player-img"> <div class="player-info"><span class="player-name">Jalen Johnson</span><span class="player-team">ATL | #1 | F</span></div>
-                                <div class="player-stats"><span>23.3</span> <span>10.6</span> <span>8.2</span></div>
-                            </div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630178.png" class="player-img"> <div class="player-info"><span class="player-name">Tyrese Maxey</span><span class="player-team">PHI | #0 | G</span></div>
-                                <div class="player-stats"><span>28.9</span> <span>4.1</span> <span>6.8</span></div>
-                            </div>
-                        </div>
-                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
-                    </div>
-
-                    <div class="matchup-container">
-                        <div class="matchup-block">
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg">
-                                <span>Pacers</span> <small>15-40</small>
-                             </div>
-                             <div class="game-time-center">
-                                 <span class="game-date-val">Fri 20 Feb</span>
-                                 <span class="game-time-val">8:00 AM PHT</span>
-                                 <div class="matchup-buttons">
-                                     <div class="match-btn">Preview</div>
-                                     <div class="match-btn">Tickets</div>
-                                 </div>
-                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
-                             </div>
-                             <div class="team-display">
-                                <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg">
-                                <span>Wizards</span> <small>14-39</small>
-                             </div>
-                        </div>
-                        <div class="leaders-block">
-                            <div class="leaders-title">SEASON LEADERS</div>
-                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1627783.png" class="player-img"> <div class="player-info"><span class="player-name">Pascal Siakam</span><span class="player-team">IND | #43 | F</span></div>
-                                <div class="player-stats"><span>23.7</span> <span>6.7</span> <span>3.9</span></div>
-                            </div>
-                            <div class="player-row">
-                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1641708.png" class="player-img"> <div class="player-info"><span class="player-name">Alex Sarr</span><span class="player-team">WAS | #20 | C</span></div>
-                                <div class="player-stats"><span>17.2</span> <span>7.8</span> <span>2.8</span></div>
-                            </div>
-                        </div>
-                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
-                    </div>
-
-                </div>
+                     </div>
 
                 <div class="sidebar-column">
                     <div class="league-pass-promo">
@@ -968,13 +961,118 @@
                         <p style="font-size:12px; margin-top:10px;">Stream every game with League Pass Premium.</p>
                         <button class="lp-btn">SIGN UP NOW</button>
                     </div>
-
                     <div class="headlines-box">
                         <div class="section-header" style="border:none; margin-bottom:5px;">HEADLINES</div>
                         <div class="headline-item">Power Rankings: The home stretch begins</div>
                         <div class="headline-item">10 storylines to follow after All-Star break</div>
                         <div class="headline-item">Best game to watch for all 30 teams as season resumes</div>
                         <div class="headline-item">Pistons enter post All-Star play with best record</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stats-content">
+            <div class="stats-main-header">
+                <h1 class="stats-h1">NBA Advanced Stats</h1>
+                <span class="stats-sub">Stats Home</span>
+            </div>
+
+            <div class="stat-tabs">
+                <div class="stat-tab active">Daily Leaders</div>
+                <div class="stat-tab">SEASON LEADERS</div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-grid-3x3">
+                    
+                    <div class="stat-box">
+                        <div class="stat-box-title">POINTS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Kawhi Leonard</span> <span class="stat-p-team">STP</span> <span class="stat-val">31</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Victor Wembanyama</span> <span class="stat-p-team">WLD</span> <span class="stat-val">19</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">Victor Wembanyama</span> <span class="stat-p-team">WLD</span> <span class="stat-val">14</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">Anthony Edwards</span> <span class="stat-p-team">STR</span> <span class="stat-val">13</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">Jaylen Brown</span> <span class="stat-p-team">STP</span> <span class="stat-val">11</span></div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-title">REBOUNDS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Victor Wembanyama</span> <span class="stat-p-team">WLD</span> <span class="stat-val">6</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Scottie Barnes</span> <span class="stat-p-team">STR</span> <span class="stat-val">5</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">Devin Booker</span> <span class="stat-p-team">STR</span> <span class="stat-val">5</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">Kawhi Leonard</span> <span class="stat-p-team">STP</span> <span class="stat-val">5</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">Scottie Barnes</span> <span class="stat-p-team">STR</span> <span class="stat-val">4</span></div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-title">ASSISTS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Devin Booker</span> <span class="stat-p-team">STR</span> <span class="stat-val">4</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Cade Cunningham</span> <span class="stat-p-team">STR</span> <span class="stat-val">4</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">LeBron James</span> <span class="stat-p-team">STP</span> <span class="stat-val">4</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">Jamal Murray</span> <span class="stat-p-team">WLD</span> <span class="stat-val">4</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">Jamal Murray</span> <span class="stat-p-team">WLD</span> <span class="stat-val">4</span></div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-title">BLOCKS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Victor Wembanyama</span> <span class="stat-p-team">WLD</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Jaylen Brown</span> <span class="stat-p-team">STP</span> <span class="stat-val">2</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">Chet Holmgren</span> <span class="stat-p-team">STR</span> <span class="stat-val">2</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">Scottie Barnes</span> <span class="stat-p-team">STR</span> <span class="stat-val">1</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">Jaylen Brown</span> <span class="stat-p-team">STP</span> <span class="stat-val">1</span></div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-title">STEALS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Cade Cunningham</span> <span class="stat-p-team">STR</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Kevin Durant</span> <span class="stat-p-team">STP</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">Tyrese Maxey</span> <span class="stat-p-team">STR</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">Jalen Johnson</span> <span class="stat-p-team">STR</span> <span class="stat-val">2</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">Kawhi Leonard</span> <span class="stat-p-team">STP</span> <span class="stat-val">2</span></div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-title">TURNOVERS</div>
+                        <div class="stat-list-item"><span class="stat-rank">1.</span> <span class="stat-p-name">Scottie Barnes</span> <span class="stat-p-team">STR</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">2.</span> <span class="stat-p-name">Cade Cunningham</span> <span class="stat-p-team">STR</span> <span class="stat-val">3</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">3.</span> <span class="stat-p-name">Deni Avdija</span> <span class="stat-p-team">WLD</span> <span class="stat-val">2</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">4.</span> <span class="stat-p-name">De'Aaron Fox</span> <span class="stat-p-team">STP</span> <span class="stat-val">2</span></div>
+                        <div class="stat-list-item"><span class="stat-rank">5.</span> <span class="stat-p-name">LeBron James</span> <span class="stat-p-team">STP</span> <span class="stat-val">2</span></div>
+                    </div>
+
+                </div>
+
+                <div class="stats-sidebar">
+                    <div class="sidebar-stat-card">
+                        <div class="stat-box-title" style="color:var(--nba-blue);">BETA</div>
+                        <div style="font-weight:900; margin-bottom:5px;">DAILY DUNK SCORE LEADERS</div>
+                        <div style="font-size:11px; color:#666; margin-bottom:10px;">02/15/2026</div>
+                        <p style="font-size:11px; color:#666; line-height:1.4;">ℹ Dunk Score ranks in-game dunks by calculating and modelling their physical and stylistic traits.</p>
+                        
+                        <div class="dunk-score-item"><span>1. <strong>Scottie Barnes</strong></span> <span class="dunk-val">71.3 ▶</span></div>
+                        <div class="dunk-score-item"><span>2. Jaylen Brown</span> <span class="dunk-val">69.3 ▶</span></div>
+                        <div class="dunk-score-item"><span>3. Kawhi Leonard</span> <span class="dunk-val">69.1 ▶</span></div>
+                        <div class="dunk-score-item"><span>4. Anthony Edwards</span> <span class="dunk-val">68.0 ▶</span></div>
+                        <div class="dunk-score-item"><span>5. Chet Holmgren</span> <span class="dunk-val">58.8 ▶</span></div>
+                    </div>
+
+                    <div class="sidebar-stat-card">
+                        <div style="font-weight:900; margin-bottom:15px; font-size:14px;">MORE STATS</div>
+                        
+                        <div class="more-stats-header">TOTAL POINTS</div>
+                        <div class="stat-list-item"><span class="stat-p-name">Shai Gilgeous-Alexander</span> <span class="stat-val">1558</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Tyrese Maxey</span> <span class="stat-val">1503</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Donovan Mitchell</span> <span class="stat-val">1478</span></div>
+
+                        <div class="more-stats-header">TOTAL REBOUNDS</div>
+                        <div class="stat-list-item"><span class="stat-p-name">Karl-Anthony Towns</span> <span class="stat-val">607</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Rudy Gobert</span> <span class="stat-val">602</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Donovan Clingan</span> <span class="stat-val">597</span></div>
+
+                        <div class="more-stats-header">TOTAL ASSISTS</div>
+                        <div class="stat-list-item"><span class="stat-p-name">Cade Cunningham</span> <span class="stat-val">452</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Nikola Jokic</span> <span class="stat-val">417</span></div>
+                        <div class="stat-list-item"><span class="stat-p-name">Jalen Johnson</span> <span class="stat-val">409</span></div>
                     </div>
                 </div>
             </div>
@@ -1066,18 +1164,28 @@
             document.getElementById('home-content').style.display = 'block';
             document.getElementById('prediction-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'none';
+            document.getElementById('stats-content').style.display = 'none';
         }
 
         function showPredictions() {
             document.getElementById('home-content').style.display = 'none';
             document.getElementById('prediction-content').style.display = 'block';
             document.getElementById('games-content').style.display = 'none';
+            document.getElementById('stats-content').style.display = 'none';
         }
 
         function showGames() {
             document.getElementById('home-content').style.display = 'none';
             document.getElementById('prediction-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'block';
+            document.getElementById('stats-content').style.display = 'none';
+        }
+
+        function showStats() {
+            document.getElementById('home-content').style.display = 'none';
+            document.getElementById('prediction-content').style.display = 'none';
+            document.getElementById('games-content').style.display = 'none';
+            document.getElementById('stats-content').style.display = 'block';
         }
 
         document.addEventListener('DOMContentLoaded', updateNBAOracle);
