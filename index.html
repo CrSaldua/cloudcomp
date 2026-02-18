@@ -99,8 +99,8 @@
             margin: 0 auto;
         }
 
-        /* Stats Content - Hidden by default, shown via JS */
-        #stats-content {
+        /* Prediction Content - Hidden by default, shown via JS */
+        #prediction-content {
             display: none; 
             animation: fadeIn 0.5s ease;
         }
@@ -238,9 +238,8 @@
         </a>
         <div class="nav-links">
             <a class="nav-link">GAMES</a>
-            <a class="nav-link">SCHEDULE</a>
-            <a class="nav-link" onclick="showStats()">STATS</a> 
-            <a class="nav-link">PREDICTION</a>
+            <a class="nav-link">STATS</a> 
+            <a class="nav-link" onclick="showPredictions()">PREDICTION</a>
             <a class="nav-link">TEAMS</a>
         </div>
     </nav>
@@ -260,10 +259,10 @@
         
         <div id="home-content">
             <h1>Welcome to the NBA Oracle</h1>
-            <p>Click "STATS" in the menu to view Conference Predictions.</p>
+            <p>Click "PREDICTION" in the menu to view results.</p>
         </div>
 
-        <div id="stats-content">
+        <div id="prediction-content">
             <div class="conference-wrapper">
                 
                 <div class="conference-card">
@@ -292,7 +291,6 @@
 
     <script>
         // Helper Object to map Team Names to NBA IDs for Logos
-        // Note: The JSON doesn't provide logo IDs, so we map them here by name.
         const teamIds = {
             "Oklahoma City Thunder": "1610612760",
             "San Antonio Spurs": "1610612759",
@@ -346,10 +344,8 @@
                 const westContainer = document.getElementById('west-list');
                 let westHTML = "";
                 
-                // Using "Western_Conference" from your JSON structure
                 if (data.predictions && data.predictions.Western_Conference) {
                     data.predictions.Western_Conference.forEach(team => {
-                        // Accessing keys: team, win_pct, probability, playoff_prediction
                         westHTML += `
                             <li class="team-item">
                                 <div class="team-info">
@@ -371,7 +367,6 @@
                 const eastContainer = document.getElementById('east-list');
                 let eastHTML = "";
                 
-                // Using "Eastern_Conference" from your JSON structure
                 if (data.predictions && data.predictions.Eastern_Conference) {
                     data.predictions.Eastern_Conference.forEach(team => {
                         eastHTML += `
@@ -402,16 +397,16 @@
 
             } catch (error) {
                 console.error("Oracle Error:", error);
-                const errorMsg = "<p style='text-align:center; padding: 20px;'>Error loading predictions.json. Please ensure the file exists and you are running a local server.</p>";
+                const errorMsg = "<p style='text-align:center; padding: 20px;'>Error loading predictions.json.</p>";
                 document.getElementById('west-list').innerHTML = errorMsg;
                 document.getElementById('east-list').innerHTML = errorMsg;
             }
         }
 
-        // Toggle Function
-        function showStats() {
+        // Toggle Function (Renamed to showPredictions)
+        function showPredictions() {
             document.getElementById('home-content').style.display = 'none';
-            document.getElementById('stats-content').style.display = 'block';
+            document.getElementById('prediction-content').style.display = 'block';
             
             // Highlight active link
             const links = document.querySelectorAll('.nav-link');
