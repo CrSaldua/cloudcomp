@@ -1,13 +1,13 @@
 async function updateNBAOracle() {
     try {
-        // 1. Fetch the local JSON file
         const response = await fetch('predictions.json');
         if (!response.ok) throw new Error("JSON file not found");
         
         const data = await response.json();
 
-        // 2. Target OKC (Index 0 in your JSON)
-        const okc = data.predictions[0]; 
+        // 1. Navigate to Western_Conference to find OKC
+        // data.predictions.Western_Conference[0] is Oklahoma City Thunder
+        const okc = data.predictions.Western_Conference[0]; 
         const predictionBox = document.getElementById('prediction-output');
         
         if (predictionBox && okc) {
@@ -20,23 +20,23 @@ async function updateNBAOracle() {
             `;
         }
 
-        // 3. Target Kings (Index 1 in your JSON)
-        const kings = data.predictions[1];
+        // 2. Navigate to Western_Conference to find a second team (e.g., Spurs)
+        // Since Sacramento Kings are missing from your new JSON, we use the second team in the list
+        const spurs = data.predictions.Western_Conference[1];
         const accuracyBox = document.getElementById('accuracy-stat');
         
-        if (accuracyBox && kings) {
+        if (accuracyBox && spurs) {
             accuracyBox.innerHTML = `
-                <h2 style="margin-bottom: 10px;">${kings.team}</h2>
-                <p>Playoff Prediction: <strong style="color: #f00;">${kings.playoff_prediction}</strong></p>
-                <p>Model Accuracy: <strong>${(data.model_metadata.accuracy * 100)}%</strong></p>
+                <h2 style="margin-bottom: 10px;">${spurs.team}</h2>
+                <p>Playoff Prediction: <strong style="color: #0f0;">${spurs.playoff_prediction}</strong></p>
+                <p>Overall Model Accuracy: <strong>${(data.model_metadata.accuracy * 100)}%</strong></p>
             `;
         }
 
     } catch (error) {
         console.error("Oracle Error:", error);
-        document.getElementById('prediction-output').innerHTML = "<p>Error loading predictions.</p>";
+        document.getElementById('prediction-output').innerHTML = "<p>Error loading predictions. Check console for details.</p>";
     }
 }
 
-// 4. Ensure the script runs after the HTML is ready
 document.addEventListener('DOMContentLoaded', updateNBAOracle);
