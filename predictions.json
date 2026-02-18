@@ -1,0 +1,26 @@
+{
+  "model_metadata": {
+    "target_variable": "MadePlayoffs",
+    "accuracy": 1.0,
+    "confusion_matrix": {
+      "not_playoffs_actual": 28,
+      "playoffs_actual": 32
+    }
+  },
+  "predictions": [
+    {
+      "team": "Oklahoma City Thunder",
+      "win_pct": 0.75,
+      "plus_minus": 11.2,
+      "playoff_prediction": "Yes",
+      "probability": 1.0
+    },
+    {
+      "team": "Sacramento Kings",
+      "win_pct": 0.214,
+      "plus_minus": -9.4,
+      "playoff_prediction": "No",
+      "probability": 0.0
+    }
+  ]
+}
