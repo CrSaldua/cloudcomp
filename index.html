@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
@@ -18,291 +18,171 @@
             overflow-x: hidden;
         }
 
-        /* --- 1. TOP NAVIGATION BAR (Exact Match) --- */
+        /* Navigation */
         .navbar {
-            background-color: #000000;
+            background-color: #000;
             color: white;
-            height: 50px; /* Precise height */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            font-size: 13px;
-            font-weight: 700;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 15px 50px;
         }
 
-        .nav-left {
+        .nav-content {
             display: flex;
             align-items: center;
-            height: 100%;
+            gap: 40px;
         }
 
-        /* NBA Logo area */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-right: 30px;
-            height: 100%;
-        }
-
-        .nba-logo-text {
-            /* Simulating the vertical NBA logo with text if image missing */
-            font-size: 28px;
-            font-weight: 900;
-            font-style: italic;
-            letter-spacing: -2px;
-            font-family: Impact, sans-serif;
-            background: -webkit-linear-gradient(#fff, #fff); /* White text */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: white;
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 20px;
-            height: 100%;
-            align-items: center;
         }
 
         .nav-links li {
             cursor: pointer;
-            color: #ffffff;
-            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
         }
 
-        .nav-links li:hover {
-            color: #cccccc;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* The Yellow League Pass Button */
-        .league-pass-btn {
-            background-color: #FFC107;
-            color: black;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: 800;
-            cursor: pointer;
-            font-size: 13px;
-            display: inline-block;
-        }
-
-        .grid-icon {
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* --- 2. SCOREBOARD TICKER --- */
+        /* Scoreboard Ticker */
         .scoreboard-container {
             display: flex;
-            background: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 0;
+            background: #ebebeb;
+            padding: 10px 40px;
+            gap: 15px;
             overflow-x: auto;
             white-space: nowrap;
-            height: 80px;
-            align-items: center;
         }
 
         .date-box {
-            background: #f8f8f8;
-            padding: 0 20px;
-            height: 100%;
+            background: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            min-width: 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            border-right: 1px solid #e0e0e0;
-            min-width: 90px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .game-card {
             background: white;
-            padding: 10px 20px;
+            border-radius: 8px;
+            padding: 15px;
             display: flex;
-            min-width: 240px;
+            min-width: 280px;
             justify-content: space-between;
             align-items: center;
-            border-right: 1px solid #e0e0e0;
-            height: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .teams {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
         }
 
         .team {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: bold;
-            font-size: 13px;
         }
 
         .icon {
             width: 20px;
             height: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
             border-radius: 50%;
-            color: white;
+            text-align: center;
+            line-height: 20px; /* Center text vertically */
             font-size: 10px;
-            font-weight: bold;
+            color: white;
         }
 
         .game-info {
             text-align: right;
-            font-size: 11px;
+            font-size: 12px;
             color: #555;
         }
 
         .preview-btn {
-            margin-top: 4px;
-            background: #c00;
+            margin-top: 5px;
+            background: #800;
             color: white;
             border: none;
-            padding: 4px 8px;
-            border-radius: 3px;
+            padding: 5px 10px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 10px;
             font-weight: bold;
+            transition: opacity 0.2s;
         }
 
-        /* --- 3. PREDICTIONS LAYOUT (Dark Mode Boxes) --- */
+        .preview-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Main Content Grid */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 20px;
-            padding: 30px 40px;
-            max-width: 1600px;
-            margin: 0 auto;
+            padding: 30px 50px;
+            min-height: 500px;
         }
 
-        .feature-box {
+        .main-feature, .side-feature {
             background-color: #000;
             border-radius: 4px;
-            padding: 20px;
+            min-height: 400px;
             color: white;
-            /* Minimal border to match screenshot */
-            border: 1px solid #000; 
+            padding: 20px;
         }
 
-        .section-header {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            /* Red line for West, Blue for East applied inline */
-        }
-
-        /* --- 4. PREDICTION ITEM STYLING --- */
-        .prediction-item {
-            background-color: #111; /* Slightly lighter black for rows */
-            border-top: 1px solid #222;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* First item usually has a top border in the list, or we use margin */
-        .prediction-item:first-child {
-            border-top: none; 
-        }
-        
-        /* Adding spacing between items like the screenshot */
-        .prediction-item {
-            margin-bottom: 8px;
-            border: 1px solid #222;
-            border-radius: 4px;
-        }
-
-        .pred-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .pred-team-name {
-            color: #fff;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .pred-stats {
-            color: #888; /* Grey text for stats */
-            font-size: 11px;
-        }
-
-        .yes-tag {
-            color: #00ff00; /* Bright Green */
-            font-weight: bold;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
-
-        /* Helper colors for icons */
+        /* Helper colors */
         .red { background: #c00; }
-        .black { background: #000; }
+        .black { background: #222; }
         .blue { background: #0066cc; }
-        .yellow-icon { background: #FDBB30; color: black; }
-        .preview-yellow { background: #FDBB30; color: black; }
+        .yellow { background: #ccaa00; }
+        .yellow-btn { background: #7a6a00; }
 
-        @media (max-width: 1024px) {
-            .content-grid { grid-template-columns: 1fr; }
-            .navbar { padding: 0 20px; }
-            .nav-links { display: none; } /* Mobile hide links */
+        /* Responsive tweak */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                padding: 15px 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-left">
-            <div class="logo-container">
-                <span class="nba-logo-text">NBA</span>
-            </div>
+        <div class="nav-content">
+            <div class="logo">NBA</div>
             <ul class="nav-links">
                 <li>Games</li>
                 <li>Schedule</li>
-                <li>Watch</li>
-                <li>News</li>
-                <li>All-Star</li>
                 <li>Stats</li>
-                <li>Standings</li>
+                <li>Prediction</li>
                 <li>Teams</li>
-                <li>Players</li>
-                <li>NBA Play</li>
-                <li>Fantasy</li>
             </ul>
-        </div>
-        
-        <div class="nav-right">
-            <div class="league-pass-btn">League Pass</div>
-            <div style="cursor: pointer;">Store</div>
-            <div style="cursor: pointer;">Tickets</div>
-            <div class="grid-icon">▦</div>
-            <div style="cursor: pointer;">Sign In</div>
         </div>
     </nav>
 
     <div class="scoreboard-container">
         <div class="date-box">
-            <span style="font-size: 10px; color: #666; font-weight: bold;">FRI</span>
-            <strong style="font-size: 14px;">FEB 20</strong>
-            <div style="font-size: 12px; margin-top: 5px;">👁</div>
+            <span>FRI</span>
+            <strong>FEB 20</strong>
+            <div class="eye-icon">👁</div>
         </div>
 
         <div class="game-card">
@@ -311,7 +191,7 @@
                 <div class="team"><span class="icon black">B</span> Nets</div>
             </div>
             <div class="game-info">
-                <p style="margin-bottom: 5px;">Fri, Feb 20<br>8:00 AM</p>
+                <p>Fri, Feb 20<br>8:00 AM</p>
                 <button class="preview-btn">GAME PREVIEW</button>
             </div>
         </div>
@@ -319,11 +199,11 @@
         <div class="game-card">
             <div class="teams">
                 <div class="team"><span class="icon blue">W</span> Wizards</div>
-                <div class="team"><span class="icon yellow-icon">P</span> Pacers</div>
+                <div class="team"><span class="icon yellow">P</span> Pacers</div>
             </div>
             <div class="game-info">
-                <p style="margin-bottom: 5px;">Fri, Feb 20<br>8:00 AM</p>
-                <button class="preview-btn preview-yellow">GAME PREVIEW</button>
+                <p>Fri, Feb 20<br>8:00 AM</p>
+                <button class="preview-btn yellow-btn">GAME PREVIEW</button>
             </div>
         </div>
 
@@ -333,171 +213,29 @@
                 <div class="team"><span class="icon red">H</span> Hawks</div>
             </div>
             <div class="game-info">
-                <p style="margin-bottom: 5px;">Fri, Feb 20<br>8:00 AM</p>
-                <button class="preview-btn">GAME PREVIEW</button>
-            </div>
-        </div>
-
-        <div class="game-card">
-            <div class="teams">
-                <div class="team"><span class="icon black">S</span> Spurs</div>
-                <div class="team"><span class="icon red">H</span> Heat</div>
-            </div>
-            <div class="game-info">
-                <p style="margin-bottom: 5px;">Fri, Feb 20<br>9:30 AM</p>
+                <p>Fri, Feb 20<br>8:00 AM</p>
                 <button class="preview-btn">GAME PREVIEW</button>
             </div>
         </div>
     </div>
 
     <main class="content-grid">
-        
-        <div class="feature-box">
-            <h2 class="section-header" style="border-bottom: 2px solid #c00;">Western Conference Predictions</h2>
-            
-            <div id="west-predictions-list">
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Oklahoma City Thunder</span>
-                        <span class="pred-stats">Win PCT: 0.75 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">San Antonio Spurs</span>
-                        <span class="pred-stats">Win PCT: 0.704 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Denver Nuggets</span>
-                        <span class="pred-stats">Win PCT: 0.636 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Houston Rockets</span>
-                        <span class="pred-stats">Win PCT: 0.623 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Los Angeles Lakers</span>
-                        <span class="pred-stats">Win PCT: 0.611 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Minnesota Timberwolves</span>
-                        <span class="pred-stats">Win PCT: 0.607 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Phoenix Suns</span>
-                        <span class="pred-stats">Win PCT: 0.582 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Golden State Warriors</span>
-                        <span class="pred-stats">Win PCT: 0.527 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
+        <div class="main-feature">
+            <h2 style="margin-bottom: 20px; border-bottom: 2px solid #c00; padding-bottom: 10px;">Western Conference Predictions</h2>
+            <div id="west-predictions">
+                <p>Loading Western Conference...</p>
             </div>
         </div>
         
-        <div class="feature-box">
-            <h2 class="section-header" style="border-bottom: 2px solid #0066cc;">Eastern Conference</h2>
-            
-            <div id="east-predictions-list">
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Detroit Pistons</span>
-                        <span class="pred-stats">Win PCT: 0.755 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Boston Celtics</span>
-                        <span class="pred-stats">Win PCT: 0.648 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">New York Knicks</span>
-                        <span class="pred-stats">Win PCT: 0.636 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Cleveland Cavaliers</span>
-                        <span class="pred-stats">Win PCT: 0.618 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Toronto Raptors</span>
-                        <span class="pred-stats">Win PCT: 0.582 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Philadelphia 76ers</span>
-                        <span class="pred-stats">Win PCT: 0.556 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Orlando Magic</span>
-                        <span class="pred-stats">Win PCT: 0.528 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
-
-                <div class="prediction-item">
-                    <div class="pred-info">
-                        <span class="pred-team-name">Miami Heat</span>
-                        <span class="pred-stats">Win PCT: 0.518 | Confidence: 100%</span>
-                    </div>
-                    <span class="yes-tag">Yes</span>
-                </div>
+        <div class="side-feature">
+            <h2 style="margin-bottom: 20px; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">Eastern Conference</h2>
+            <div id="east-predictions">
+                <p>Loading Eastern Conference...</p>
             </div>
-
-            <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 15px; font-size: 12px; color: #888;">
-                Model Accuracy: <strong style="color: white;">100%</strong><br>
-                Target: MadePlayoffs
-            </div>
+            <div id="model-stats" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #444;">
+                </div>
         </div>
-
     </main>
-
-    </body>
+<script src="script.js"></script>
+</body>
 </html>
