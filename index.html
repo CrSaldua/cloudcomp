@@ -99,7 +99,7 @@
             margin: 0 auto;
         }
 
-        /* Prediction Content - Hidden by default, shown via JS */
+        /* Prediction Content */
         #prediction-content {
             display: none; 
             animation: fadeIn 0.5s ease;
@@ -114,6 +114,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
+            align-items: start; /* Ensures top alignment */
         }
 
         @media (max-width: 900px) {
@@ -128,24 +129,33 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            /* Ensure height consistency if needed */
+            display: flex;
+            flex-direction: column;
         }
 
+        /* --- Perfectly Aligned Headers --- */
         .card-header {
-            padding: 15px 20px;
+            /* Flexbox ensures strict vertical centering */
+            display: flex; 
+            align-items: center;
+            height: 60px; /* Fixed height for perfect alignment */
+            padding: 0 20px;
             font-size: 18px;
             font-weight: 700;
             text-transform: uppercase;
             border-bottom: 1px solid #333;
+            white-space: nowrap; /* Prevents text wrapping */
         }
 
         .header-west {
-            border-left: 5px solid var(--nba-red);
-            background: linear-gradient(90deg, rgba(201,8,42,0.1) 0%, rgba(30,30,30,0) 100%);
+            border-left: 6px solid var(--nba-red);
+            background: linear-gradient(90deg, rgba(201,8,42,0.15) 0%, rgba(30,30,30,0) 100%);
         }
 
         .header-east {
-            border-left: 5px solid var(--nba-blue);
-            background: linear-gradient(90deg, rgba(23,64,139,0.1) 0%, rgba(30,30,30,0) 100%);
+            border-left: 6px solid var(--nba-blue);
+            background: linear-gradient(90deg, rgba(23,64,139,0.15) 0%, rgba(30,30,30,0) 100%);
         }
 
         /* --- Team List --- */
@@ -159,7 +169,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 20px;
+            padding: 15px 20px; /* Increased padding for better spacing */
             border-bottom: 1px solid #2c2c2c;
             transition: background 0.2s;
         }
@@ -176,36 +186,42 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            flex: 1; /* Takes available space */
         }
 
         .team-logo {
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
             background-color: #333; 
             border-radius: 50%;
-            padding: 2px;
+            padding: 4px;
         }
 
         .team-name {
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
+            color: #fff;
         }
 
         .team-stats {
             text-align: right;
             font-size: 12px;
             color: var(--text-muted);
+            margin-right: 20px; /* Space between stats and badge */
         }
 
         .team-stats span {
             display: block;
+            line-height: 1.4;
         }
 
         .status-badge {
             color: var(--accent-green);
             font-weight: bold;
             font-size: 14px;
+            min-width: 30px;
+            text-align: right;
         }
 
         .footer {
@@ -219,8 +235,9 @@
         .badge-acc {
             background: var(--nba-blue);
             color: white;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 4px;
+            font-weight: bold;
         }
 
         #home-content {
@@ -403,7 +420,7 @@
             }
         }
 
-        // Toggle Function (Renamed to showPredictions)
+        // Toggle Function
         function showPredictions() {
             document.getElementById('home-content').style.display = 'none';
             document.getElementById('prediction-content').style.display = 'block';
