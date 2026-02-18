@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Games & Scores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --bg-hover: #2c2c2c;
+            --text-main: #ffffff;
+            --text-muted: #b0b0b0;
+            --nba-red: #C9082A;
+            --nba-blue: #17408B;
+            --accent-green: #00ff88;
+            --nba-yellow: #FDB927;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f3f3f3;
+            color: #000;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: black;
+            padding: 0 20px;
+            height: 60px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+        }
+
+        /* --- SUB HEADER --- */
+        .sub-header {
+            background-color: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .sub-header-title {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* --- DATE PICKER --- */
+        .date-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .date-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .date-item {
+            text-align: center;
+            cursor: pointer;
+            color: #888;
+        }
+        .date-item.active {
+            color: black;
+            font-weight: 900;
+            border-bottom: 3px solid black;
+            padding-bottom: 5px;
+        }
+        .date-day { font-size: 11px; text-transform: uppercase; display: block; }
+        .date-num { font-size: 18px; font-weight: 700; }
+
+
+        /* --- MAIN LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .games-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- GAME CARD --- */
+        .game-matchup-card {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Left Section: Teams & Time */
+        .matchup-left {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .team-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+        }
+        .team-logo-lg { width: 50px; height: 50px; object-fit: contain; margin-bottom: 5px; }
+        .team-name-lg { font-weight: 700; font-size: 13px; }
+        .team-record { font-size: 11px; color: #666; }
+
+        .game-info-center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+        }
+        .game-date-sm { font-size: 11px; color: #666; font-weight: 500; }
+        .game-time-lg { font-size: 24px; font-weight: 900; margin: 5px 0; }
+        
+        .btn-group {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-game {
+            flex: 1;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 6px 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+            cursor: pointer;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .btn-game:hover { background: #f5f5f5; }
+
+        .lp-link {
+            margin-top: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .icon-play-yellow {
+            width: 0; height: 0; 
+            border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+            border-left: 6px solid #FDB927;
+        }
+
+        /* Middle Section: Leaders */
+        .matchup-leaders {
+            flex: 1.2;
+            padding: 15px 20px;
+            border-right: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .leader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .leader-label { font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        .stat-labels { font-size: 10px; color: #888; font-weight: 700; display: flex; gap: 12px; }
+
+        .leader-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .leader-row:last-child { margin-bottom: 0; }
+        
+        .leader-img {
+            width: 35px; height: 35px; border-radius: 50%; 
+            background: #eee; margin-right: 10px; object-fit: cover;
+        }
+        .leader-details { flex: 1; }
+        .leader-name { font-size: 13px; font-weight: 700; display: block; }
+        .leader-team { font-size: 10px; color: #666; }
+        
+        .leader-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Right Section: Logo */
+        .matchup-logo {
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fcfcfc;
+        }
+        .lp-logo-txt { height: 18px; }
+
+
+        /* --- SIDEBAR --- */
+        .sidebar-widget {
+            background: white;
+            border-radius: 4px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .lp-promo-blue {
+            background: #006BB6;
+            color: white;
+            text-align: center;
+        }
+        .lp-promo-blue img { height: 25px; filter: brightness(0) invert(1); margin-bottom: 10px; }
+        .lp-promo-blue h3 { font-size: 16px; margin: 0; text-transform: uppercase; line-height: 1.2; }
+        .lp-promo-blue p { font-size: 12px; margin: 10px 0; opacity: 0.9; }
+        .btn-signup {
+            background: white; color: #006BB6;
+            border: none; padding: 8px 20px;
+            font-weight: 700; text-transform: uppercase;
+            font-size: 12px; cursor: pointer;
+        }
+
+        .headlines-list h4 { margin: 0 0 15px 0; font-size: 14px; font-weight: 900; text-transform: uppercase; }
+        .headline-link {
+            display: block;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .headline-link:hover { color: var(--nba-blue); }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" alt="NBA Logo">
+        </a>
+        <div class="nav-links">
+            <a href="games.html" class="nav-link active">GAMES</a>
+            <a class="nav-link">STATS</a> 
+            <a href="index.html" class="nav-link">PREDICTION</a> <a class="nav-link">TEAMS</a>
+        </div>
+    </nav>
+
+    <div style="background:white; border-bottom:1px solid #ccc;">
+        <div class="container" style="padding: 10px 20px;">
+            <div style="font-size:24px; font-weight:900; margin-bottom:10px;">NBA GAMES & SCORES</div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button style="border:1px solid #ccc; background:white; padding:5px 10px; border-radius:4px;">February 2026 ▼</button>
+                </div>
+                <div style="display:flex; gap:20px;">
+                    <div class="date-item"><span class="date-day">SUN</span><span class="date-num">15</span></div>
+                    <div class="date-item"><span class="date-day">MON</span><span class="date-num">16</span></div>
+                    <div class="date-item"><span class="date-day">TUE</span><span class="date-num">17</span></div>
+                    <div class="date-item"><span class="date-day">WED</span><span class="date-num">18</span></div>
+                    <div class="date-item active"><span class="date-day">THU</span><span class="date-num">19</span></div>
+                    <div class="date-item"><span class="date-day">FRI</span><span class="date-num">20</span></div>
+                    <div class="date-item"><span class="date-day">SAT</span><span class="date-num">21</span></div>
+                </div>
+                <div>
+                     <span style="font-size:12px; font-weight:bold;">HIDE SCORES</span>
+                     <span style="display:inline-block; width:30px; height:16px; background:#ccc; borderRadius:8px; vertical-align:middle; position:relative;">
+                        <span style="position:absolute; left:2px; top:2px; width:12px; height:12px; background:white; borderRadius:50%;"></span>
+                     </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="games-grid">
+            
+            <div class="games-list">
+
+                <div class="game-matchup-card">
+                    <div class="matchup-left">
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Rockets</span>
+                            <span class="team-record">33-20</span>
+                        </div>
+                        <div class="game-info-center">
+                            <span class="game-date-sm">Fri 20 Feb</span>
+                            <span class="game-time-lg">8:00 AM PHT</span>
+                            <div class="btn-group">
+                                <div class="btn-game">Preview</div>
+                                <div class="btn-game">Tickets</div>
+                            </div>
+                            <div class="lp-link"><div class="icon-play-yellow"></div> League Pass</div>
+                        </div>
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Hornets</span>
+                            <span class="team-record">26-29</span>
+                        </div>
+                    </div>
+                    <div class="matchup-leaders">
+                        <div class="leader-header">
+                            <span class="leader-label">SEASON LEADERS</span>
+                            <div class="stat-labels"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630578.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Alperen Sengun</span>
+                                <span class="leader-team">HOU | #28 | C</span>
+                            </div>
+                            <div class="leader-stats"><span>20.7</span> <span>9.4</span> <span>6.3</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630163.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">LaMelo Ball</span>
+                                <span class="leader-team">CHA | #1 | G</span>
+                            </div>
+                            <div class="leader-stats"><span>19.3</span> <span>4.8</span> <span>7.4</span></div>
+                        </div>
+                    </div>
+                    <div class="matchup-logo">
+                        <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-txt">
+                    </div>
+                </div>
+
+                <div class="game-matchup-card">
+                    <div class="matchup-left">
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Nets</span>
+                            <span class="team-record">15-38</span>
+                        </div>
+                        <div class="game-info-center">
+                            <span class="game-date-sm">Fri 20 Feb</span>
+                            <span class="game-time-lg">8:00 AM PHT</span>
+                            <div class="btn-group">
+                                <div class="btn-game">Preview</div>
+                                <div class="btn-game">Tickets</div>
+                            </div>
+                            <div class="lp-link"><div class="icon-play-yellow"></div> League Pass</div>
+                        </div>
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Cavaliers</span>
+                            <span class="team-record">34-21</span>
+                        </div>
+                    </div>
+                    <div class="matchup-leaders">
+                        <div class="leader-header">
+                            <span class="leader-label">SEASON LEADERS</span>
+                            <div class="stat-labels"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1629008.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Michael Porter Jr.</span>
+                                <span class="leader-team">BKN | #17 | F</span>
+                            </div>
+                            <div class="leader-stats"><span>25.0</span> <span>7.2</span> <span>3.2</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1628378.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Donovan Mitchell</span>
+                                <span class="leader-team">CLE | #45 | G</span>
+                            </div>
+                            <div class="leader-stats"><span>29.0</span> <span>4.5</span> <span>5.9</span></div>
+                        </div>
+                    </div>
+                    <div class="matchup-logo">
+                        <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-txt">
+                    </div>
+                </div>
+
+                <div class="game-matchup-card">
+                    <div class="matchup-left">
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Hawks</span>
+                            <span class="team-record">26-30</span>
+                        </div>
+                        <div class="game-info-center">
+                            <span class="game-date-sm">Fri 20 Feb</span>
+                            <span class="game-time-lg">8:00 AM PHT</span>
+                            <div class="btn-group">
+                                <div class="btn-game">Preview</div>
+                                <div class="btn-game">Tickets</div>
+                            </div>
+                            <div class="lp-link"><div class="icon-play-yellow"></div> League Pass</div>
+                        </div>
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">76ers</span>
+                            <span class="team-record">30-24</span>
+                        </div>
+                    </div>
+                    <div class="matchup-leaders">
+                        <div class="leader-header">
+                            <span class="leader-label">SEASON LEADERS</span>
+                            <div class="stat-labels"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630552.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Jalen Johnson</span>
+                                <span class="leader-team">ATL | #1 | F</span>
+                            </div>
+                            <div class="leader-stats"><span>23.3</span> <span>10.6</span> <span>8.2</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630178.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Tyrese Maxey</span>
+                                <span class="leader-team">PHI | #0 | G</span>
+                            </div>
+                            <div class="leader-stats"><span>28.9</span> <span>4.1</span> <span>6.8</span></div>
+                        </div>
+                    </div>
+                    <div class="matchup-logo">
+                        <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-txt">
+                    </div>
+                </div>
+                
+                 <div class="game-matchup-card">
+                    <div class="matchup-left">
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Pacers</span>
+                            <span class="team-record">15-40</span>
+                        </div>
+                        <div class="game-info-center">
+                            <span class="game-date-sm">Fri 20 Feb</span>
+                            <span class="game-time-lg">8:00 AM PHT</span>
+                            <div class="btn-group">
+                                <div class="btn-game">Preview</div>
+                                <div class="btn-game">Tickets</div>
+                            </div>
+                            <div class="lp-link"><div class="icon-play-yellow"></div> League Pass</div>
+                        </div>
+                        <div class="team-col">
+                            <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="team-logo-lg">
+                            <span class="team-name-lg">Wizards</span>
+                            <span class="team-record">14-39</span>
+                        </div>
+                    </div>
+                    <div class="matchup-leaders">
+                        <div class="leader-header">
+                            <span class="leader-label">SEASON LEADERS</span>
+                            <div class="stat-labels"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1627783.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Pascal Siakam</span>
+                                <span class="leader-team">IND | #43 | F</span>
+                            </div>
+                            <div class="leader-stats"><span>23.7</span> <span>6.7</span> <span>3.9</span></div>
+                        </div>
+                        <div class="leader-row">
+                            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1641708.png" class="leader-img">
+                            <div class="leader-details">
+                                <span class="leader-name">Alex Sarr</span>
+                                <span class="leader-team">WAS | #20 | C</span>
+                            </div>
+                            <div class="leader-stats"><span>17.2</span> <span>7.8</span> <span>2.8</span></div>
+                        </div>
+                    </div>
+                    <div class="matchup-logo">
+                        <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-txt">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-widget lp-promo-blue">
+                    <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" alt="NBA">
+                    <h3>COMMERCIAL-FREE GAMES. ALL SEASON LONG.</h3>
+                    <p>Stream in-arena entertainment with League Pass Premium, now at a new low price.</p>
+                    <button class="btn-signup">SIGN UP NOW</button>
+                </div>
+
+                <div class="sidebar-widget headlines-list">
+                    <h4>HEADLINES</h4>
+                    <a href="#" class="headline-link">Power Rankings: The home stretch begins</a>
+                    <a href="#" class="headline-link">10 storylines to follow after All-Star break</a>
+                    <a href="#" class="headline-link">Best game to watch for all 30 teams as season resumes</a>
+                    <a href="#" class="headline-link">Pistons enter post All-Star play with best record</a>
+                    <a href="#" class="headline-link">'Sophomore' Ladder: Ranking second-year standouts</a>
+                    <a href="#" class="headline-link">Former NBA coach Doug Moe passes away at 87</a>
+                    <a href="#" class="headline-link">Wolves sign Conley after being waived by Hornets</a>
+                    <a href="#" class="headline-link">Jazz's Jackson Jr. undergoes knee surgery</a>
+                    <a href="#" class="headline-link">NBA All-Star audience highest since 2011</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
