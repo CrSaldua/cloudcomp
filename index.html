@@ -21,11 +21,11 @@
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
-            background-color: #f3f3f3; /* Light gray background for the whole page */
+            background-color: #f3f3f3;
             color: #000;
         }
 
-        /* --- Navigation Bar (Black) --- */
+        /* --- Navigation Bar --- */
         .navbar {
             display: flex;
             align-items: center;
@@ -63,7 +63,7 @@
             color: white;
         }
 
-        /* --- GAME TICKER (League Pass Style) --- */
+        /* --- GAME TICKER --- */
         .game-ticker {
             background-color: #f0f0f0;
             padding: 10px;
@@ -148,7 +148,7 @@
             border-left: 7px solid var(--nba-yellow);
         }
 
-        /* --- MAIN LAYOUT (Home Page) --- */
+        /* --- MAIN LAYOUT --- */
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -178,18 +178,16 @@
             border-radius: 4px;
         }
 
-        /* Hero Background Image (Jokic) */
         .hero-bg {
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
-            background-image: url('https://cdn.nba.com/manage/2024/02/nikola-jokic-iso-blue-jersey.jpg'); /* Placeholder Jokic Image */
+            background-image: url('https://cdn.nba.com/manage/2024/02/nikola-jokic-iso-blue-jersey.jpg');
             background-size: cover;
             background-position: center 20%;
             opacity: 0.8;
             z-index: 1;
         }
         
-        /* Gradient Overlay */
         .hero-overlay {
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
@@ -240,7 +238,7 @@
         .related-links p { margin: 5px 0; cursor: pointer; }
         .related-links p:hover { text-decoration: underline; color: white; }
 
-        /* Sub-Hero Navigation Strip */
+        /* Sub-Hero Navigation */
         .sub-nav {
             background-color: #000;
             color: #aaa;
@@ -250,7 +248,7 @@
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            margin-top: -5px; /* Pull up to attach to hero */
+            margin-top: -5px;
             border-bottom-left-radius: 4px;
             border-bottom-right-radius: 4px;
         }
@@ -347,21 +345,21 @@
             font-size: 12px;
         }
 
-        /* --- PREDICTION STYLES (Hidden by default) --- */
+        /* --- PREDICTION STYLES --- */
         #prediction-content {
             display: none;
-            background-color: var(--bg-dark); /* Dark mode for stats */
+            background-color: var(--bg-dark);
             color: white;
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
         }
 
-        /* Using the dark styles from previous steps for the prediction area */
         .conference-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
+            align-items: start; /* Align to top */
         }
         .conference-card {
             background-color: var(--bg-card);
@@ -369,12 +367,20 @@
             overflow: hidden;
             border: 1px solid #333;
         }
+        
+        /* Updated Header for Alignment */
         .card-header-conf {
-            padding: 15px;
+            display: flex;
+            align-items: center; /* Vertical Center */
+            height: 50px;       /* Fixed Height */
+            padding: 0 15px;
             font-size: 18px;
             font-weight: 700;
             text-transform: uppercase;
             border-bottom: 1px solid #333;
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .header-west { border-left: 5px solid var(--nba-red); background: #1a1a1a; }
         .header-east { border-left: 5px solid var(--nba-blue); background: #1a1a1a; }
@@ -412,7 +418,6 @@
             <span class="date-month">FEB 20</span>
             <div style="font-size:16px; color:#555;">👁️</div>
         </div>
-
         <div class="game-card">
             <div class="card-header-time">8:00 AM PHT</div>
             <div class="card-body">
@@ -433,7 +438,6 @@
             </div>
             <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
-
         <div class="game-card">
             <div class="card-header-time">8:00 AM PHT</div>
             <div class="card-body">
@@ -454,7 +458,6 @@
             </div>
             <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
-
         <div class="game-card">
             <div class="card-header-time">8:00 AM PHT</div>
             <div class="card-body">
@@ -481,9 +484,7 @@
         
         <div id="home-content">
             <div class="home-grid">
-                
                 <div class="main-column">
-                    
                     <div class="hero-section">
                         <div class="hero-bg"></div>
                         <div class="hero-overlay"></div>
@@ -491,7 +492,6 @@
                             <h1 class="hero-title">10 STORYLINES TO FOLLOW AFTER ALL-STAR BREAK</h1>
                             <p class="hero-sub">Here are 10 things that could happen, or not, in the final weeks of the season.</p>
                             <button class="btn-read">READ</button>
-
                             <div class="related-links">
                                 <p style="color:#aaa; font-weight:700; margin-bottom:10px;">RELATED CONTENT</p>
                                 <p>Power Rankings: The home stretch begins</p>
@@ -534,11 +534,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="sidebar-column">
-                    
                     <div class="headlines-box">
                         <div class="section-header" style="border:none; margin-bottom:5px;">HEADLINES</div>
                         <div class="headline-item">Power Rankings: The home stretch begins</div>
@@ -563,7 +561,6 @@
                             <span>🔵</span> <span>📸</span> <span>👻</span> <span>📺</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -585,7 +582,6 @@
     </div>
 
     <script>
-        // --- LOGIC FROM PREVIOUS STEPS ---
         const teamIds = {
             "Oklahoma City Thunder": "1610612760", "San Antonio Spurs": "1610612759", "Denver Nuggets": "1610612743", "Houston Rockets": "1610612745", "Los Angeles Lakers": "1610612747", "Minnesota Timberwolves": "1610612750", "Phoenix Suns": "1610612756", "Golden State Warriors": "1610612744", "Detroit Pistons": "1610612765", "Boston Celtics": "1610612738", "New York Knicks": "1610612752", "Cleveland Cavaliers": "1610612739", "Toronto Raptors": "1610612761", "Philadelphia 76ers": "1610612755", "Orlando Magic": "1610612753", "Miami Heat": "1610612748", "Atlanta Hawks": "1610612737", "Brooklyn Nets": "1610612751", "Charlotte Hornets": "1610612766", "Chicago Bulls": "1610612741", "Dallas Mavericks": "1610612742", "Indiana Pacers": "1610612754", "LA Clippers": "1610612746", "Memphis Grizzlies": "1610612763", "Milwaukee Bucks": "1610612749", "New Orleans Pelicans": "1610612740", "Portland Trail Blazers": "1610612757", "Sacramento Kings": "1610612758", "Utah Jazz": "1610612762", "Washington Wizards": "1610612764"
         };
@@ -613,8 +609,7 @@
                                     <span class="team-name">${team.team}</span>
                                 </div>
                                 <div class="team-stats">
-                                    <span>Win PCT: ${team.win_pct}</span>
-                                    <span>Conf: ${Math.round(team.probability * 100)}%</span>
+                                    <span>Win PCT: ${team.win_pct} Conf: ${Math.round(team.probability * 100)}%</span>
                                 </div>
                                 <div class="status-badge">${team.playoff_prediction}</div>
                             </li>`;
@@ -634,8 +629,7 @@
                                     <span class="team-name">${team.team}</span>
                                 </div>
                                 <div class="team-stats">
-                                    <span>Win PCT: ${team.win_pct}</span>
-                                    <span>Conf: ${Math.round(team.probability * 100)}%</span>
+                                    <span>Win PCT: ${team.win_pct} Conf: ${Math.round(team.probability * 100)}%</span>
                                 </div>
                                 <div class="status-badge">${team.playoff_prediction}</div>
                             </li>`;
@@ -643,7 +637,6 @@
                     eastContainer.innerHTML = eastHTML;
                 }
                 
-                // Metadata
                 if (data.model_metadata) {
                     document.getElementById('model-stats').innerHTML = `Accuracy: ${(data.model_metadata.accuracy * 100)}% | Target: ${data.model_metadata.target_variable}`;
                 }
@@ -653,7 +646,6 @@
             }
         }
 
-        // --- NAVIGATION TOGGLES ---
         function showHome() {
             document.getElementById('home-content').style.display = 'block';
             document.getElementById('prediction-content').style.display = 'none';
