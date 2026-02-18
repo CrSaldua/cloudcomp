@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Predictions Oracle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #121212;
@@ -15,23 +15,27 @@
             --nba-red: #C9082A;
             --nba-blue: #17408B;
             --accent-green: #00ff88;
+            --nba-yellow: #FDB927;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: #f3f3f3; /* Light gray background for the whole page */
+            color: #000;
         }
 
-        /* --- Navigation Bar --- */
+        /* --- Navigation Bar (Black) --- */
         .navbar {
             display: flex;
             align-items: center;
             background-color: black;
             padding: 0 20px;
             height: 60px;
-            border-bottom: 2px solid var(--bg-hover);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .navbar-brand img {
@@ -46,7 +50,7 @@
         }
 
         .nav-link {
-            color: var(--text-muted);
+            color: #ccc;
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
@@ -56,28 +60,27 @@
         }
 
         .nav-link:hover, .nav-link.active {
-            color: var(--text-main);
+            color: white;
         }
 
-        /* --- NEW GAME TICKER DESIGN (LEAGUE PASS STYLE) --- */
+        /* --- GAME TICKER (League Pass Style) --- */
         .game-ticker {
-            background-color: #f0f0f0; /* Light grey background */
+            background-color: #f0f0f0;
             padding: 10px;
             display: flex;
             gap: 15px;
             overflow-x: auto;
-            align-items: flex-start; /* Align to top */
             border-bottom: 1px solid #ccc;
-            min-height: 110px;
+            scrollbar-width: none;
         }
+        .game-ticker::-webkit-scrollbar { display: none; }
 
-        /* Date Block */
         .date-box {
             background-color: #e0e0e0;
             border: 1px solid #ccc;
             border-radius: 4px;
             min-width: 80px;
-            height: 100px; /* Match card height approx */
+            height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,13 +88,10 @@
             color: #000;
             font-weight: 700;
             text-align: center;
-            line-height: 1.2;
         }
         .date-day { font-size: 14px; }
         .date-month { font-size: 12px; margin-bottom: 5px; }
-        .date-icon { font-size: 16px; color: #555; }
 
-        /* Game Card Container */
         .game-card {
             background-color: white;
             border: 1px solid #dcdcdc;
@@ -103,7 +103,6 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* Card Header (Time) */
         .card-header-time {
             background-color: #e8e8e8;
             padding: 4px 10px;
@@ -113,7 +112,6 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        /* Card Body (Teams) */
         .card-body {
             padding: 8px 10px;
             display: flex;
@@ -127,31 +125,11 @@
             align-items: center;
         }
 
-        .team-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .team-left { display: flex; align-items: center; gap: 8px; }
+        .ticker-logo { width: 20px; height: 20px; object-fit: contain; }
+        .ticker-name { font-size: 13px; font-weight: 600; color: #000; }
+        .ticker-record { font-size: 12px; color: #666; }
 
-        .ticker-logo {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
-
-        .ticker-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #000;
-        }
-
-        .ticker-record {
-            font-size: 12px;
-            color: #666;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* Card Footer (League Pass) */
         .card-footer {
             border-top: 1px solid #f0f0f0;
             padding: 6px;
@@ -164,176 +142,260 @@
             color: #000;
             cursor: pointer;
         }
-        
-        .card-footer:hover {
-            background-color: #f9f9f9;
-        }
-
         .icon-play {
-            width: 0; 
-            height: 0; 
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-left: 7px solid #FDB927; /* NBA Yellow */
+            width: 0; height: 0; 
+            border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+            border-left: 7px solid var(--nba-yellow);
         }
 
-
-        /* --- Main Content Area --- */
+        /* --- MAIN LAYOUT (Home Page) --- */
         .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .home-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: black;
+            color: white;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Hero Background Image (Jokic) */
+        .hero-bg {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-image: url('https://cdn.nba.com/manage/2024/02/nikola-jokic-iso-blue-jersey.jpg'); /* Placeholder Jokic Image */
+            background-size: cover;
+            background-position: center 20%;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        
+        /* Gradient Overlay */
+        .hero-overlay {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
             padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 60%;
         }
 
-        /* Prediction Content */
+        .hero-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .btn-read {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 8px 24px;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .btn-read:hover { background-color: white; color: black; }
+
+        .related-links {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .related-links p { margin: 5px 0; cursor: pointer; }
+        .related-links p:hover { text-decoration: underline; color: white; }
+
+        /* Sub-Hero Navigation Strip */
+        .sub-nav {
+            background-color: #000;
+            color: #aaa;
+            display: flex;
+            gap: 20px;
+            padding: 10px 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: -5px; /* Pull up to attach to hero */
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        .sub-nav span { cursor: pointer; }
+        .sub-nav span:hover { color: white; }
+        .sub-nav .active { color: white; border-bottom: 2px solid white; padding-bottom: 2px; }
+
+        /* Stories Grid */
+        .stories-section { margin-top: 30px; }
+        .section-header {
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .story-card {
+            position: relative;
+            height: 250px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .story-bg {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .story-card:hover .story-bg { transform: scale(1.05); }
+        .story-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .badge {
+            position: absolute;
+            top: 10px; left: 10px;
+            background: var(--nba-yellow);
+            color: black;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        /* Sidebar Styles */
+        .headlines-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .headline-item {
+            font-size: 13px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            color: #333;
+        }
+        .headline-item:hover { color: var(--nba-blue); }
+        .headline-item:last-child { border-bottom: none; }
+
+        .league-pass-promo {
+            background: linear-gradient(45deg, #006BB6, #002B5C);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .lp-btn {
+            background-color: white;
+            color: #002B5C;
+            border: none;
+            padding: 8px 16px;
+            font-weight: 700;
+            margin-top: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        /* --- PREDICTION STYLES (Hidden by default) --- */
         #prediction-content {
-            display: none; 
-            animation: fadeIn 0.5s ease;
+            display: none;
+            background-color: var(--bg-dark); /* Dark mode for stats */
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* Using the dark styles from previous steps for the prediction area */
         .conference-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: start;
         }
-
-        @media (max-width: 900px) {
-            .conference-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* --- Conference Cards --- */
         .conference-card {
             background-color: var(--bg-card);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
+            border: 1px solid #333;
         }
-
-        .card-header {
-            display: flex; 
-            align-items: center;
-            height: 60px;
-            padding: 0 20px;
+        .card-header-conf {
+            padding: 15px;
             font-size: 18px;
             font-weight: 700;
             text-transform: uppercase;
             border-bottom: 1px solid #333;
-            white-space: nowrap;
         }
-
-        .header-west {
-            border-left: 6px solid var(--nba-red);
-            background: linear-gradient(90deg, rgba(201,8,42,0.15) 0%, rgba(30,30,30,0) 100%);
-        }
-
-        .header-east {
-            border-left: 6px solid var(--nba-blue);
-            background: linear-gradient(90deg, rgba(23,64,139,0.15) 0%, rgba(30,30,30,0) 100%);
-        }
-
-        /* --- Team List --- */
-        .team-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .team-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            border-bottom: 1px solid #2c2c2c;
-            transition: background 0.2s;
-        }
-
-        .team-item:last-child {
-            border-bottom: none;
-        }
-
-        .team-item:hover {
-            background-color: var(--bg-hover);
-        }
-
-        .team-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1;
-        }
-
-        .team-logo {
-            width: 38px;
-            height: 38px;
-            object-fit: contain;
-            background-color: #333; 
-            border-radius: 50%;
-            padding: 4px;
-        }
-
-        .team-name {
-            font-weight: 600;
-            font-size: 15px;
-            color: #fff;
-        }
-
-        .team-stats {
-            text-align: right;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-right: 20px;
-        }
-
-        .team-stats span {
-            display: block;
-            line-height: 1.4;
-        }
-
-        .status-badge {
-            color: var(--accent-green);
-            font-weight: bold;
-            font-size: 14px;
-            min-width: 30px;
-            text-align: right;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            color: var(--text-muted);
-            font-size: 12px;
-        }
+        .header-west { border-left: 5px solid var(--nba-red); background: #1a1a1a; }
+        .header-east { border-left: 5px solid var(--nba-blue); background: #1a1a1a; }
         
-        .badge-acc {
-            background: var(--nba-blue);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: bold;
+        .team-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            background-color: #121212;
         }
+        .team-info { display: flex; align-items: center; gap: 10px; }
+        .team-name { font-size: 14px; font-weight: 500; }
+        .status-badge { color: var(--accent-green); font-weight: bold; }
+        .team-stats { text-align: right; font-size: 11px; color: #888; }
 
-        #home-content {
-            text-align: center;
-            padding: 100px 0;
-            color: var(--text-muted);
-        }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="#" class="navbar-brand">
+        <a href="#" class="navbar-brand" onclick="showHome()">
             <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" alt="NBA Logo">
         </a>
         <div class="nav-links">
@@ -345,11 +407,10 @@
     </nav>
 
     <div class="game-ticker">
-        
         <div class="date-box">
             <span class="date-day">FRI</span>
             <span class="date-month">FEB 20</span>
-            <div class="date-icon">👁️</div>
+            <div style="font-size:16px; color:#555;">👁️</div>
         </div>
 
         <div class="game-card">
@@ -370,9 +431,7 @@
                     <span class="ticker-record">15-38</span>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="icon-play"></div> League Pass
-            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
 
         <div class="game-card">
@@ -393,9 +452,7 @@
                     <span class="ticker-record">15-40</span>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="icon-play"></div> League Pass
-            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
 
         <div class="game-card">
@@ -416,173 +473,197 @@
                     <span class="ticker-record">26-30</span>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="icon-play"></div> League Pass
-            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
-
     </div>
 
     <div class="container">
         
         <div id="home-content">
-            <h1>Welcome to the NBA Oracle</h1>
-            <p>Click "PREDICTION" in the menu to view results.</p>
+            <div class="home-grid">
+                
+                <div class="main-column">
+                    
+                    <div class="hero-section">
+                        <div class="hero-bg"></div>
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <h1 class="hero-title">10 STORYLINES TO FOLLOW AFTER ALL-STAR BREAK</h1>
+                            <p class="hero-sub">Here are 10 things that could happen, or not, in the final weeks of the season.</p>
+                            <button class="btn-read">READ</button>
+
+                            <div class="related-links">
+                                <p style="color:#aaa; font-weight:700; margin-bottom:10px;">RELATED CONTENT</p>
+                                <p>Power Rankings: The home stretch begins</p>
+                                <p>Best game to watch for all 30 teams as season resumes</p>
+                                <p>Kia MVP Ladder: Who's No. 1 at All-Star break?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sub-nav">
+                        <span>POWER RANKINGS</span>
+                        <span class="active">FEATURE</span>
+                        <span>NEWS</span>
+                        <span>FEATURE</span>
+                        <span>KIA MVP LADDER</span>
+                    </div>
+
+                    <div class="stories-section">
+                        <div class="section-header">STORIES</div>
+                        <div class="stories-grid">
+                            <div class="story-card">
+                                <span class="badge">NEW</span>
+                                <img src="https://cdn.nba.com/manage/2024/02/jalen-brunson-driving.jpg" class="story-bg" alt="Story">
+                                <div class="story-overlay">The NBA is Back On Prime 📺</div>
+                            </div>
+                            <div class="story-card">
+                                <span class="badge">FYI</span>
+                                <img src="https://cdn.nba.com/manage/2024/02/keegan-murray-dunk.jpg" class="story-bg" alt="Story">
+                                <div class="story-overlay">'Sophomore' Ladder: Ranking 2nd Year Standouts</div>
+                            </div>
+                            <div class="story-card">
+                                <span class="badge">HEADLINES</span>
+                                <img src="https://cdn.nba.com/manage/2023/10/ousmane-dieng-shooting.jpg" class="story-bg" alt="Story">
+                                <div class="story-overlay">The Athletic: Ousmane Dieng Has Been A Bucks 'Jewel'</div>
+                            </div>
+                            <div class="story-card">
+                                <span class="badge">HEADLINES</span>
+                                <img src="https://cdn.nba.com/manage/2023/10/landry-shamet-shooting.jpg" class="story-bg" alt="Story">
+                                <div class="story-overlay">The Athletic: Shamet Might Be The Best Vet-Minimum...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="sidebar-column">
+                    
+                    <div class="headlines-box">
+                        <div class="section-header" style="border:none; margin-bottom:5px;">HEADLINES</div>
+                        <div class="headline-item">Power Rankings: The home stretch begins</div>
+                        <div class="headline-item">10 storylines to follow after All-Star break</div>
+                        <div class="headline-item">Best game to watch for all 30 teams as season resumes</div>
+                        <div class="headline-item">Pistons enter post All-Star play with best record</div>
+                        <div class="headline-item">'Sophomore' Ladder: Ranking second-year standouts</div>
+                        <div class="headline-item">Former NBA coach Doug Moe passes away at 87</div>
+                        <div class="headline-item">Wolves sign Conley after being waived by Hornets</div>
+                    </div>
+
+                    <div class="league-pass-promo">
+                        <img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" style="height:30px; margin-bottom:10px; filter: brightness(0) invert(1);">
+                        <h3>EVERY BIG GAME. NEW LOW PRICE.</h3>
+                        <p style="font-size:12px; margin-top:10px;">Stream every game through the NBA Finals without commercials.</p>
+                        <button class="lp-btn">SIGN UP NOW</button>
+                    </div>
+
+                    <div class="headlines-box">
+                        <div class="section-header" style="font-size:12px;">FOLLOW THE NBA</div>
+                        <div style="display:flex; gap:15px; font-size:20px;">
+                            <span>🔵</span> <span>📸</span> <span>👻</span> <span>📺</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <div id="prediction-content">
-            <div class="conference-wrapper">
-                
+             <div class="conference-wrapper">
                 <div class="conference-card">
-                    <div class="card-header header-west">
-                        Western Conference Predictions
-                    </div>
-                    <ul class="team-list" id="west-list">
-                        </ul>
+                    <div class="card-header-conf header-west">Western Conference Predictions</div>
+                    <ul class="team-list" id="west-list" style="padding:0; margin:0; list-style:none;"></ul>
                 </div>
-
                 <div class="conference-card">
-                    <div class="card-header header-east">
-                        Eastern Conference
-                    </div>
-                    <ul class="team-list" id="east-list">
-                         </ul>
+                    <div class="card-header-conf header-east">Eastern Conference</div>
+                    <ul class="team-list" id="east-list" style="padding:0; margin:0; list-style:none;"></ul>
                 </div>
-
             </div>
-
-            <div class="footer" id="model-stats">
-                </div>
+            <div style="margin-top:20px; font-size:12px; color:#aaa;" id="model-stats"></div>
         </div>
 
     </div>
 
     <script>
-        // Helper Object to map Team Names to NBA IDs for Logos
+        // --- LOGIC FROM PREVIOUS STEPS ---
         const teamIds = {
-            "Oklahoma City Thunder": "1610612760",
-            "San Antonio Spurs": "1610612759",
-            "Denver Nuggets": "1610612743",
-            "Houston Rockets": "1610612745",
-            "Los Angeles Lakers": "1610612747",
-            "Minnesota Timberwolves": "1610612750",
-            "Phoenix Suns": "1610612756",
-            "Golden State Warriors": "1610612744",
-            "Detroit Pistons": "1610612765",
-            "Boston Celtics": "1610612738",
-            "New York Knicks": "1610612752",
-            "Cleveland Cavaliers": "1610612739",
-            "Toronto Raptors": "1610612761",
-            "Philadelphia 76ers": "1610612755",
-            "Orlando Magic": "1610612753",
-            "Miami Heat": "1610612748",
-            "Atlanta Hawks": "1610612737",
-            "Brooklyn Nets": "1610612751",
-            "Charlotte Hornets": "1610612766",
-            "Chicago Bulls": "1610612741",
-            "Dallas Mavericks": "1610612742",
-            "Indiana Pacers": "1610612754",
-            "LA Clippers": "1610612746",
-            "Memphis Grizzlies": "1610612763",
-            "Milwaukee Bucks": "1610612749",
-            "New Orleans Pelicans": "1610612740",
-            "Portland Trail Blazers": "1610612757",
-            "Sacramento Kings": "1610612758",
-            "Utah Jazz": "1610612762",
-            "Washington Wizards": "1610612764"
+            "Oklahoma City Thunder": "1610612760", "San Antonio Spurs": "1610612759", "Denver Nuggets": "1610612743", "Houston Rockets": "1610612745", "Los Angeles Lakers": "1610612747", "Minnesota Timberwolves": "1610612750", "Phoenix Suns": "1610612756", "Golden State Warriors": "1610612744", "Detroit Pistons": "1610612765", "Boston Celtics": "1610612738", "New York Knicks": "1610612752", "Cleveland Cavaliers": "1610612739", "Toronto Raptors": "1610612761", "Philadelphia 76ers": "1610612755", "Orlando Magic": "1610612753", "Miami Heat": "1610612748", "Atlanta Hawks": "1610612737", "Brooklyn Nets": "1610612751", "Charlotte Hornets": "1610612766", "Chicago Bulls": "1610612741", "Dallas Mavericks": "1610612742", "Indiana Pacers": "1610612754", "LA Clippers": "1610612746", "Memphis Grizzlies": "1610612763", "Milwaukee Bucks": "1610612749", "New Orleans Pelicans": "1610612740", "Portland Trail Blazers": "1610612757", "Sacramento Kings": "1610612758", "Utah Jazz": "1610612762", "Washington Wizards": "1610612764"
         };
 
         function getTeamLogo(teamName) {
             const id = teamIds[teamName];
-            if (id) {
-                return `https://cdn.nba.com/logos/nba/${id}/primary/L/logo.svg`;
-            }
-            return "https://cdn.nba.com/logos/leagues/logo-nba.svg"; 
+            return id ? `https://cdn.nba.com/logos/nba/${id}/primary/L/logo.svg` : "https://cdn.nba.com/logos/leagues/logo-nba.svg"; 
         }
 
         async function updateNBAOracle() {
             try {
-                // Fetch the JSON file
                 const response = await fetch('predictions.json');
-                if (!response.ok) throw new Error("JSON file not found. Ensure predictions.json is in the folder.");
-                
+                if (!response.ok) throw new Error("JSON file not found.");
                 const data = await response.json();
 
-                // 1. Update Western Conference
+                // West
                 const westContainer = document.getElementById('west-list');
                 let westHTML = "";
-                
-                if (data.predictions && data.predictions.Western_Conference) {
+                if (data.predictions?.Western_Conference) {
                     data.predictions.Western_Conference.forEach(team => {
                         westHTML += `
                             <li class="team-item">
                                 <div class="team-info">
-                                    <img src="${getTeamLogo(team.team)}" class="team-logo" alt="${team.team}">
+                                    <img src="${getTeamLogo(team.team)}" style="width:30px;">
                                     <span class="team-name">${team.team}</span>
                                 </div>
                                 <div class="team-stats">
                                     <span>Win PCT: ${team.win_pct}</span>
-                                    <span>Confidence: ${Math.round(team.probability * 100)}%</span>
+                                    <span>Conf: ${Math.round(team.probability * 100)}%</span>
                                 </div>
                                 <div class="status-badge">${team.playoff_prediction}</div>
-                            </li>
-                        `;
+                            </li>`;
                     });
                     westContainer.innerHTML = westHTML;
                 }
 
-                // 2. Update Eastern Conference
+                // East
                 const eastContainer = document.getElementById('east-list');
                 let eastHTML = "";
-                
-                if (data.predictions && data.predictions.Eastern_Conference) {
+                if (data.predictions?.Eastern_Conference) {
                     data.predictions.Eastern_Conference.forEach(team => {
                         eastHTML += `
                              <li class="team-item">
                                 <div class="team-info">
-                                    <img src="${getTeamLogo(team.team)}" class="team-logo" alt="${team.team}">
+                                    <img src="${getTeamLogo(team.team)}" style="width:30px;">
                                     <span class="team-name">${team.team}</span>
                                 </div>
                                 <div class="team-stats">
                                     <span>Win PCT: ${team.win_pct}</span>
-                                    <span>Confidence: ${Math.round(team.probability * 100)}%</span>
+                                    <span>Conf: ${Math.round(team.probability * 100)}%</span>
                                 </div>
                                 <div class="status-badge">${team.playoff_prediction}</div>
-                            </li>
-                        `;
+                            </li>`;
                     });
                     eastContainer.innerHTML = eastHTML;
                 }
-
-                // 3. Update Model Metadata (Bottom Footer)
-                const statsBox = document.getElementById('model-stats');
+                
+                // Metadata
                 if (data.model_metadata) {
-                    statsBox.innerHTML = `
-                        <span class="badge-acc">Model Accuracy: ${(data.model_metadata.accuracy * 100)}%</span>
-                        <span style="margin-left: 10px;">Target: ${data.model_metadata.target_variable}</span>
-                    `;
+                    document.getElementById('model-stats').innerHTML = `Accuracy: ${(data.model_metadata.accuracy * 100)}% | Target: ${data.model_metadata.target_variable}`;
                 }
 
             } catch (error) {
-                console.error("Oracle Error:", error);
-                const errorMsg = "<p style='text-align:center; padding: 20px;'>Error loading predictions.json.</p>";
-                document.getElementById('west-list').innerHTML = errorMsg;
-                document.getElementById('east-list').innerHTML = errorMsg;
+                console.error(error);
             }
         }
 
-        // Toggle Function
+        // --- NAVIGATION TOGGLES ---
+        function showHome() {
+            document.getElementById('home-content').style.display = 'block';
+            document.getElementById('prediction-content').style.display = 'none';
+        }
+
         function showPredictions() {
             document.getElementById('home-content').style.display = 'none';
             document.getElementById('prediction-content').style.display = 'block';
-            
-            // Highlight active link
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(l => l.classList.remove('active'));
-            event.target.classList.add('active');
         }
 
-        // Run on load
         document.addEventListener('DOMContentLoaded', updateNBAOracle);
     </script>
 </body>
