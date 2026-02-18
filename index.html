@@ -59,115 +59,123 @@
             color: var(--text-main);
         }
 
-        /* --- NEW GAME TICKER DESIGN (Updated to match image) --- */
+        /* --- NEW GAME TICKER DESIGN (LEAGUE PASS STYLE) --- */
         .game-ticker {
-            background-color: #e0e0e0; /* Light grey background */
+            background-color: #f0f0f0; /* Light grey background */
             padding: 10px;
             display: flex;
             gap: 15px;
             overflow-x: auto;
-            align-items: center;
+            align-items: flex-start; /* Align to top */
             border-bottom: 1px solid #ccc;
+            min-height: 110px;
         }
 
-        /* Date Block (FRI FEB 20) */
+        /* Date Block */
         .date-box {
-            background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
-            border: 1px solid #bbb;
-            border-radius: 5px;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             min-width: 80px;
-            height: 70px;
+            height: 100px; /* Match card height approx */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #333;
+            color: #000;
             font-weight: 700;
             text-align: center;
             line-height: 1.2;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .date-day { font-size: 14px; display: block; }
-        .date-month { font-size: 12px; display: block; }
-        .date-icon { font-size: 16px; margin-top: 4px; color: #555; }
+        .date-day { font-size: 14px; }
+        .date-month { font-size: 12px; margin-bottom: 5px; }
+        .date-icon { font-size: 16px; color: #555; }
 
-        /* Matchup Card */
-        .match-card {
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 10px 15px;
+        /* Game Card Container */
+        .game-card {
+            background-color: white;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Card Header (Time) */
+        .card-header-time {
+            background-color: #e8e8e8;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #000;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* Card Body (Teams) */
+        .card-body {
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .match-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-width: 280px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* Left Side: Teams */
-        .match-teams {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .team-row {
+        .team-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .ticker-logo {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%; /* Circle logo background */
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
         }
-        
-        /* Specific logo background colors to match image style */
-        .bg-cavs { background-color: #860038; padding: 2px; }
-        .bg-nets { background-color: black; padding: 2px; }
-        .bg-wizards { background-color: #002B5C; padding: 2px; }
-        .bg-pacers { background-color: #FDBB30; padding: 2px; }
-        .bg-76ers { background-color: #006BB6; padding: 2px; }
-        .bg-hawks { background-color: #C8102E; padding: 2px; }
 
         .ticker-name {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 600;
             color: #000;
         }
 
-        /* Right Side: Info & Button */
-        .match-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 100%;
-            gap: 8px;
-        }
-
-        .match-time {
-            text-align: right;
-            font-size: 11px;
+        .ticker-record {
+            font-size: 12px;
             color: #666;
-            line-height: 1.3;
+            font-family: 'Roboto', sans-serif;
         }
 
-        .btn-preview {
-            color: white;
+        /* Card Footer (League Pass) */
+        .card-footer {
+            border-top: 1px solid #f0f0f0;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             font-size: 11px;
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            text-transform: uppercase;
-            border: none;
+            color: #000;
             cursor: pointer;
         }
+        
+        .card-footer:hover {
+            background-color: #f9f9f9;
+        }
 
-        .btn-red { background-color: #860038; } /* Cavs Red */
-        .btn-gold { background-color: #7b6602; } /* Pacers/Wiz Gold-ish dark */
+        .icon-play {
+            width: 0; 
+            height: 0; 
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 7px solid #FDB927; /* NBA Yellow */
+        }
 
 
         /* --- Main Content Area --- */
@@ -344,60 +352,72 @@
             <div class="date-icon">👁️</div>
         </div>
 
-        <div class="match-card">
-            <div class="match-teams">
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="ticker-logo bg-cavs">
-                    <span class="ticker-name">Cavaliers</span>
+        <div class="game-card">
+            <div class="card-header-time">8:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Cavaliers</span>
+                    </div>
+                    <span class="ticker-record">34-21</span>
                 </div>
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" class="ticker-logo bg-nets">
-                    <span class="ticker-name">Nets</span>
-                </div>
-            </div>
-            <div class="match-info">
-                <div class="match-time">
-                    Fri, Feb 20<br>8:00 AM
-                </div>
-                <button class="btn-preview btn-red">GAME PREVIEW</button>
-            </div>
-        </div>
-
-        <div class="match-card">
-            <div class="match-teams">
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="ticker-logo bg-wizards">
-                    <span class="ticker-name">Wizards</span>
-                </div>
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="ticker-logo bg-pacers">
-                    <span class="ticker-name">Pacers</span>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Nets</span>
+                    </div>
+                    <span class="ticker-record">15-38</span>
                 </div>
             </div>
-            <div class="match-info">
-                <div class="match-time">
-                    Fri, Feb 20<br>8:00 AM
-                </div>
-                <button class="btn-preview btn-gold">GAME PREVIEW</button>
+            <div class="card-footer">
+                <div class="icon-play"></div> League Pass
             </div>
         </div>
 
-        <div class="match-card">
-            <div class="match-teams">
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="ticker-logo bg-76ers">
-                    <span class="ticker-name">76ers</span>
+        <div class="game-card">
+            <div class="card-header-time">8:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Wizards</span>
+                    </div>
+                    <span class="ticker-record">14-39</span>
                 </div>
-                <div class="team-row">
-                    <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg" class="ticker-logo bg-hawks">
-                    <span class="ticker-name">Hawks</span>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Pacers</span>
+                    </div>
+                    <span class="ticker-record">15-40</span>
                 </div>
             </div>
-            <div class="match-info">
-                <div class="match-time">
-                    Fri, Feb 20<br>8:00 AM
+            <div class="card-footer">
+                <div class="icon-play"></div> League Pass
+            </div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">8:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">76ers</span>
+                    </div>
+                    <span class="ticker-record">30-24</span>
                 </div>
-                <button class="btn-preview btn-red">GAME PREVIEW</button>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Hawks</span>
+                    </div>
+                    <span class="ticker-record">26-30</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="icon-play"></div> League Pass
             </div>
         </div>
 
