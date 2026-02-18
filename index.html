@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Predictions Dashboard</title>
+    <title>NBA Predictions Oracle</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,7 +35,7 @@
         }
 
         .navbar-brand img {
-            height: 40px; /* Adjust size of NBA Logo here */
+            height: 40px;
             display: block;
         }
 
@@ -59,7 +59,7 @@
             color: var(--text-main);
         }
 
-        /* --- Game Ticker (Top White Bar) --- */
+        /* --- Game Ticker --- */
         .game-ticker {
             background-color: #ffffff;
             color: #000;
@@ -99,7 +99,7 @@
             margin: 0 auto;
         }
 
-        /* Hidden by default, shown via JS */
+        /* Stats Content - Hidden by default, shown via JS */
         #stats-content {
             display: none; 
             animation: fadeIn 0.5s ease;
@@ -179,12 +179,12 @@
         }
 
         .team-logo {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             object-fit: contain;
-            /* Placeholder background circle */
             background-color: #333; 
             border-radius: 50%;
+            padding: 2px;
         }
 
         .team-name {
@@ -208,7 +208,6 @@
             font-size: 14px;
         }
 
-        /* --- Footer --- */
         .footer {
             margin-top: 30px;
             padding-top: 20px;
@@ -224,7 +223,6 @@
             border-radius: 4px;
         }
 
-        /* --- Welcome/Empty State --- */
         #home-content {
             text-align: center;
             padding: 100px 0;
@@ -256,16 +254,12 @@
             <span>🔵 Wizards vs Pacers 🟡</span>
             <button class="btn-preview">GAME PREVIEW</button>
         </div>
-        <div class="ticker-item">
-            <span>🔵 76ers vs Hawks 🔴</span>
-            <button class="btn-preview">GAME PREVIEW</button>
-        </div>
     </div>
 
     <div class="container">
         
         <div id="home-content">
-            <h1>Welcome to the NBA Dashboard</h1>
+            <h1>Welcome to the NBA Oracle</h1>
             <p>Click "STATS" in the menu to view Conference Predictions.</p>
         </div>
 
@@ -276,40 +270,7 @@
                     <div class="card-header header-west">
                         Western Conference Predictions
                     </div>
-                    <ul class="team-list">
-                        <li class="team-item">
-                            <div class="team-info">
-                                <img src="https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg" class="team-logo" alt="OKC">
-                                <span class="team-name">Oklahoma City Thunder</span>
-                            </div>
-                            <div class="team-stats">
-                                <span>Win PCT: 0.75</span>
-                                <span>Confidence: 100%</span>
-                            </div>
-                            <div class="status-badge">Yes</div>
-                        </li>
-                        <li class="team-item">
-                            <div class="team-info">
-                                <img src="https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg" class="team-logo" alt="SAS">
-                                <span class="team-name">San Antonio Spurs</span>
-                            </div>
-                            <div class="team-stats">
-                                <span>Win PCT: 0.704</span>
-                                <span>Confidence: 100%</span>
-                            </div>
-                            <div class="status-badge">Yes</div>
-                        </li>
-                        <li class="team-item">
-                            <div class="team-info">
-                                <img src="https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg" class="team-logo" alt="DEN">
-                                <span class="team-name">Denver Nuggets</span>
-                            </div>
-                            <div class="team-stats">
-                                <span>Win PCT: 0.636</span>
-                                <span>Confidence: 100%</span>
-                            </div>
-                            <div class="status-badge">Yes</div>
-                        </li>
+                    <ul class="team-list" id="west-list">
                         </ul>
                 </div>
 
@@ -317,59 +278,149 @@
                     <div class="card-header header-east">
                         Eastern Conference
                     </div>
-                    <ul class="team-list">
-                        <li class="team-item">
-                            <div class="team-info">
-                                <img src="https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg" class="team-logo" alt="DET">
-                                <span class="team-name">Detroit Pistons</span>
-                            </div>
-                            <div class="team-stats">
-                                <span>Win PCT: 0.755</span>
-                                <span>Confidence: 100%</span>
-                            </div>
-                            <div class="status-badge">Yes</div>
-                        </li>
-                        <li class="team-item">
-                            <div class="team-info">
-                                <img src="https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg" class="team-logo" alt="BOS">
-                                <span class="team-name">Boston Celtics</span>
-                            </div>
-                            <div class="team-stats">
-                                <span>Win PCT: 0.648</span>
-                                <span>Confidence: 100%</span>
-                            </div>
-                            <div class="status-badge">Yes</div>
-                        </li>
-                        </ul>
+                    <ul class="team-list" id="east-list">
+                         </ul>
                 </div>
 
             </div>
 
-            <div class="footer">
-                <span class="badge-acc">Model Accuracy: 100%</span>
-                <span style="margin-left: 10px;">Target: MadePlayoffs</span>
-            </div>
+            <div class="footer" id="model-stats">
+                </div>
         </div>
 
     </div>
 
     <script>
+        // Helper Object to map Team Names to NBA IDs for Logos
+        // Note: The JSON doesn't provide logo IDs, so we map them here by name.
+        const teamIds = {
+            "Oklahoma City Thunder": "1610612760",
+            "San Antonio Spurs": "1610612759",
+            "Denver Nuggets": "1610612743",
+            "Houston Rockets": "1610612745",
+            "Los Angeles Lakers": "1610612747",
+            "Minnesota Timberwolves": "1610612750",
+            "Phoenix Suns": "1610612756",
+            "Golden State Warriors": "1610612744",
+            "Detroit Pistons": "1610612765",
+            "Boston Celtics": "1610612738",
+            "New York Knicks": "1610612752",
+            "Cleveland Cavaliers": "1610612739",
+            "Toronto Raptors": "1610612761",
+            "Philadelphia 76ers": "1610612755",
+            "Orlando Magic": "1610612753",
+            "Miami Heat": "1610612748",
+            "Atlanta Hawks": "1610612737",
+            "Brooklyn Nets": "1610612751",
+            "Charlotte Hornets": "1610612766",
+            "Chicago Bulls": "1610612741",
+            "Dallas Mavericks": "1610612742",
+            "Indiana Pacers": "1610612754",
+            "LA Clippers": "1610612746",
+            "Memphis Grizzlies": "1610612763",
+            "Milwaukee Bucks": "1610612749",
+            "New Orleans Pelicans": "1610612740",
+            "Portland Trail Blazers": "1610612757",
+            "Sacramento Kings": "1610612758",
+            "Utah Jazz": "1610612762",
+            "Washington Wizards": "1610612764"
+        };
+
+        function getTeamLogo(teamName) {
+            const id = teamIds[teamName];
+            if (id) {
+                return `https://cdn.nba.com/logos/nba/${id}/primary/L/logo.svg`;
+            }
+            return "https://cdn.nba.com/logos/leagues/logo-nba.svg"; 
+        }
+
+        async function updateNBAOracle() {
+            try {
+                // Fetch the JSON file
+                const response = await fetch('predictions.json');
+                if (!response.ok) throw new Error("JSON file not found. Ensure predictions.json is in the folder.");
+                
+                const data = await response.json();
+
+                // 1. Update Western Conference
+                const westContainer = document.getElementById('west-list');
+                let westHTML = "";
+                
+                // Using "Western_Conference" from your JSON structure
+                if (data.predictions && data.predictions.Western_Conference) {
+                    data.predictions.Western_Conference.forEach(team => {
+                        // Accessing keys: team, win_pct, probability, playoff_prediction
+                        westHTML += `
+                            <li class="team-item">
+                                <div class="team-info">
+                                    <img src="${getTeamLogo(team.team)}" class="team-logo" alt="${team.team}">
+                                    <span class="team-name">${team.team}</span>
+                                </div>
+                                <div class="team-stats">
+                                    <span>Win PCT: ${team.win_pct}</span>
+                                    <span>Confidence: ${Math.round(team.probability * 100)}%</span>
+                                </div>
+                                <div class="status-badge">${team.playoff_prediction}</div>
+                            </li>
+                        `;
+                    });
+                    westContainer.innerHTML = westHTML;
+                }
+
+                // 2. Update Eastern Conference
+                const eastContainer = document.getElementById('east-list');
+                let eastHTML = "";
+                
+                // Using "Eastern_Conference" from your JSON structure
+                if (data.predictions && data.predictions.Eastern_Conference) {
+                    data.predictions.Eastern_Conference.forEach(team => {
+                        eastHTML += `
+                             <li class="team-item">
+                                <div class="team-info">
+                                    <img src="${getTeamLogo(team.team)}" class="team-logo" alt="${team.team}">
+                                    <span class="team-name">${team.team}</span>
+                                </div>
+                                <div class="team-stats">
+                                    <span>Win PCT: ${team.win_pct}</span>
+                                    <span>Confidence: ${Math.round(team.probability * 100)}%</span>
+                                </div>
+                                <div class="status-badge">${team.playoff_prediction}</div>
+                            </li>
+                        `;
+                    });
+                    eastContainer.innerHTML = eastHTML;
+                }
+
+                // 3. Update Model Metadata (Bottom Footer)
+                const statsBox = document.getElementById('model-stats');
+                if (data.model_metadata) {
+                    statsBox.innerHTML = `
+                        <span class="badge-acc">Model Accuracy: ${(data.model_metadata.accuracy * 100)}%</span>
+                        <span style="margin-left: 10px;">Target: ${data.model_metadata.target_variable}</span>
+                    `;
+                }
+
+            } catch (error) {
+                console.error("Oracle Error:", error);
+                const errorMsg = "<p style='text-align:center; padding: 20px;'>Error loading predictions.json. Please ensure the file exists and you are running a local server.</p>";
+                document.getElementById('west-list').innerHTML = errorMsg;
+                document.getElementById('east-list').innerHTML = errorMsg;
+            }
+        }
+
+        // Toggle Function
         function showStats() {
-            // Hide the welcome screen
             document.getElementById('home-content').style.display = 'none';
+            document.getElementById('stats-content').style.display = 'block';
             
-            // Show the stats/predictions
-            const statsDiv = document.getElementById('stats-content');
-            
-            // Toggle logic (optional: if you want it to close on second click)
-            // For now, we just force show it as per request
-            statsDiv.style.display = 'block';
-            
-            // Highlight the nav link
+            // Highlight active link
             const links = document.querySelectorAll('.nav-link');
             links.forEach(l => l.classList.remove('active'));
             event.target.classList.add('active');
         }
+
+        // Run on load
+        document.addEventListener('DOMContentLoaded', updateNBAOracle);
     </script>
 </body>
 </html>
