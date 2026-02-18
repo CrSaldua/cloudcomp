@@ -88,6 +88,7 @@
             color: #000;
             font-weight: 700;
             text-align: center;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         .date-day { font-size: 14px; }
         .date-month { font-size: 12px; margin-bottom: 5px; }
@@ -101,6 +102,7 @@
             flex-direction: column;
             overflow: hidden;
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .card-header-time {
@@ -181,7 +183,6 @@
         .hero-bg {
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
-            /* Updated Image URL as requested */
             background-image: url('https://assets-cms.thescore.com/uploads/image/file/624257/w640xh480_GettyImages-2147043906.jpg?ts=1712811995');
             background-size: cover;
             background-position: center 20%;
@@ -415,20 +416,35 @@
 
     <div class="game-ticker">
         <div class="date-box">
-            <span class="date-day">FRI</span>
-            <span class="date-month">FEB 20</span>
+            <span class="date-day">THU</span>
+            <span class="date-month">FEB 19</span>
             <div style="font-size:16px; color:#555;">👁️</div>
         </div>
+        
         <div class="game-card">
             <div class="card-header-time">8:00 AM PHT</div>
             <div class="card-body">
                 <div class="match-row">
                     <div class="team-left">
-                        <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="ticker-logo">
-                        <span class="ticker-name">Cavaliers</span>
+                        <img src="https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Rockets</span>
                     </div>
-                    <span class="ticker-record">34-21</span>
+                    <span class="ticker-record">33-20</span>
                 </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Hornets</span>
+                    </div>
+                    <span class="ticker-record">26-29</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">8:00 AM PHT</div>
+            <div class="card-body">
                 <div class="match-row">
                     <div class="team-left">
                         <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" class="ticker-logo">
@@ -436,39 +452,20 @@
                     </div>
                     <span class="ticker-record">15-38</span>
                 </div>
-            </div>
-            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
-        </div>
-        <div class="game-card">
-            <div class="card-header-time">8:00 AM PHT</div>
-            <div class="card-body">
                 <div class="match-row">
                     <div class="team-left">
-                        <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="ticker-logo">
-                        <span class="ticker-name">Wizards</span>
+                        <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Cavaliers</span>
                     </div>
-                    <span class="ticker-record">14-39</span>
-                </div>
-                <div class="match-row">
-                    <div class="team-left">
-                        <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="ticker-logo">
-                        <span class="ticker-name">Pacers</span>
-                    </div>
-                    <span class="ticker-record">15-40</span>
+                    <span class="ticker-record">34-21</span>
                 </div>
             </div>
             <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
+
         <div class="game-card">
             <div class="card-header-time">8:00 AM PHT</div>
             <div class="card-body">
-                <div class="match-row">
-                    <div class="team-left">
-                        <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="ticker-logo">
-                        <span class="ticker-name">76ers</span>
-                    </div>
-                    <span class="ticker-record">30-24</span>
-                </div>
                 <div class="match-row">
                     <div class="team-left">
                         <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg" class="ticker-logo">
@@ -476,9 +473,122 @@
                     </div>
                     <span class="ticker-record">26-30</span>
                 </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">76ers</span>
+                    </div>
+                    <span class="ticker-record">30-24</span>
+                </div>
             </div>
             <div class="card-footer"><div class="icon-play"></div> League Pass</div>
         </div>
+
+        <div class="game-card">
+            <div class="card-header-time">8:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Pacers</span>
+                    </div>
+                    <span class="ticker-record">15-40</span>
+                </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Wizards</span>
+                    </div>
+                    <span class="ticker-record">14-39</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">8:30 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Pistons</span>
+                    </div>
+                    <span class="ticker-record">40-13</span>
+                </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Knicks</span>
+                    </div>
+                    <span class="ticker-record">35-20</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">9:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Raptors</span>
+                    </div>
+                    <span class="ticker-record">32-23</span>
+                </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Bulls</span>
+                    </div>
+                    <span class="ticker-record">24-31</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">9:30 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Suns</span>
+                    </div>
+                    <span class="ticker-record">32-23</span>
+                </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Spurs</span>
+                    </div>
+                    <span class="ticker-record">38-16</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header-time">11:00 AM PHT</div>
+            <div class="card-body">
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Celtics</span>
+                    </div>
+                    <span class="ticker-record">35-12</span>
+                </div>
+                <div class="match-row">
+                    <div class="team-left">
+                        <img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" class="ticker-logo">
+                        <span class="ticker-name">Warriors</span>
+                    </div>
+                    <span class="ticker-record">29-25</span>
+                </div>
+            </div>
+            <div class="card-footer"><div class="icon-play"></div> League Pass</div>
+        </div>
+
     </div>
 
     <div class="container">
