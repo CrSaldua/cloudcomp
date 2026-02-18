@@ -5,37 +5,52 @@ async function updateNBAOracle() {
         
         const data = await response.json();
 
-        // 1. Navigate to Western_Conference to find OKC
-        // data.predictions.Western_Conference[0] is Oklahoma City Thunder
-        const okc = data.predictions.Western_Conference[0]; 
-        const predictionBox = document.getElementById('prediction-output');
-        
-        if (predictionBox && okc) {
-            predictionBox.innerHTML = `
-                <h1 style="font-size: 2.5rem; margin-bottom: 15px;">${okc.team}</h1>
-                <p style="font-size: 1.2rem;">Playoff Prediction: <span style="color: #0f0;">${okc.playoff_prediction}</span></p>
-                <p style="font-size: 1.2rem;">Model Confidence: <strong>${(okc.probability * 100)}%</strong></p>
-                <hr style="margin: 20px 0; border-color: #333;">
-                <p>Current Win PCT: ${okc.win_pct}</p>
+        // 1. Update Western Conference
+        const westContainer = document.getElementById('west-predictions');
+        let westHTML = "";
+        data.predictions.Western_Conference.forEach(team => {
+            westHTML += `
+                <div style="background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 4px solid #c00;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>${team.team}</strong>
+                        <span style="color: #0f0;">${team.playoff_prediction}</span>
+                    </div>
+                    <div style="font-size: 12px; color: #aaa; margin-top: 5px;">
+                        Win PCT: ${team.win_pct} | Confidence: ${(team.probability * 100)}%
+                    </div>
+                </div>
             `;
-        }
+        });
+        westContainer.innerHTML = westHTML;
 
-        // 2. Navigate to Western_Conference to find a second team (e.g., Spurs)
-        // Since Sacramento Kings are missing from your new JSON, we use the second team in the list
-        const spurs = data.predictions.Western_Conference[1];
-        const accuracyBox = document.getElementById('accuracy-stat');
-        
-        if (accuracyBox && spurs) {
-            accuracyBox.innerHTML = `
-                <h2 style="margin-bottom: 10px;">${spurs.team}</h2>
-                <p>Playoff Prediction: <strong style="color: #0f0;">${spurs.playoff_prediction}</strong></p>
-                <p>Overall Model Accuracy: <strong>${(data.model_metadata.accuracy * 100)}%</strong></p>
+        // 2. Update Eastern Conference
+        const eastContainer = document.getElementById('east-predictions');
+        let eastHTML = "";
+        data.predictions.Eastern_Conference.forEach(team => {
+            eastHTML += `
+                <div style="background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 4px solid #0066cc;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>${team.team}</strong>
+                        <span style="color: #0f0;">${team.playoff_prediction}</span>
+                    </div>
+                    <div style="font-size: 12px; color: #aaa; margin-top: 5px;">
+                        Win PCT: ${team.win_pct} | Confidence: ${(team.probability * 100)}%
+                    </div>
+                </div>
             `;
-        }
+        });
+        eastContainer.innerHTML = eastHTML;
+
+        // 3. Update Model Metadata
+        const statsBox = document.getElementById('model-stats');
+        statsBox.innerHTML = `
+            <p style="color: #aaa;">Model Accuracy: <strong style="color: white;">${(data.model_metadata.accuracy * 100)}%</strong></p>
+            <p style="color: #aaa;">Target: ${data.model_metadata.target_variable}</p>
+        `;
 
     } catch (error) {
         console.error("Oracle Error:", error);
-        document.getElementById('prediction-output').innerHTML = "<p>Error loading predictions. Check console for details.</p>";
+        document.getElementById('west-predictions').innerHTML = "<p>Error loading predictions.</p>";
     }
 }
 
