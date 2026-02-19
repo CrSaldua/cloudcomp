@@ -61,8 +61,8 @@ async function updateNBAOracle() {
 
         // FIXED: Changed target_variable to target to match your JSON
         if (data.model_metadata) {
-            document.getElementById('model-stats').innerHTML =
-                `Accuracy: ${(data.model_metadata.accuracy * 100)}% | Target: ${data.model_metadata.target}`;
+            document.getElementById('model-stats').innerHTML = 
+                `Accuracy: ${(data.model_metadata.accuracy * 100)}%`;
         }
 
     } catch (error) {
