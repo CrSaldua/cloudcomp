@@ -155,6 +155,7 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 0 20px;
+            min-height: 60vh; /* Ensure content area takes up space before footer */
         }
 
         .home-grid {
@@ -599,7 +600,6 @@
         .stat-p-team { color: #999; font-size: 10px; margin-left: 3px; }
         .stat-val { font-weight: 900; }
 
-        /* Sidebar stats */
         .sidebar-stat-card {
             background: white;
             border: 1px solid #eee;
@@ -624,6 +624,150 @@
             margin-top: 15px;
         }
 
+
+        /* --- TEAMS TAB STYLES --- */
+        #teams-content {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .teams-header-main {
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .division-name {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        .team-entry {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .team-img-sm {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            margin-right: 12px;
+        }
+        .team-name-txt {
+            font-size: 15px;
+            font-weight: 500;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .team-links-row {
+            font-size: 11px;
+            color: #006BB6;
+            display: flex;
+            gap: 10px;
+            margin-top: 3px;
+        }
+        .team-links-row a {
+            color: #006BB6;
+            text-decoration: none;
+        }
+        .team-links-row a:hover {
+            text-decoration: underline;
+        }
+        .ext-icon {
+            font-size: 10px;
+            color: #888;
+        }
+
+        /* --- GLOBAL FOOTER STYLES --- */
+        .site-footer {
+            background-color: #000;
+            color: #fff;
+            padding: 50px 20px 30px;
+            font-family: 'Roboto', sans-serif;
+            margin-top: 50px;
+        }
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        .foot-col h4 {
+            color: #888;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .foot-col a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .foot-col a:hover {
+            text-decoration: underline;
+        }
+        .lp-badge {
+            background-color: var(--nba-yellow);
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .footer-divider {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid #333;
+            padding-top: 25px;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .foot-legal p {
+            font-size: 11px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        .legal-links {
+            font-size: 10px;
+            color: #aaa;
+        }
+        .legal-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 4px;
+        }
+        .legal-links a:hover {
+            text-decoration: underline;
+        }
+        .foot-socials {
+            display: flex;
+            gap: 15px;
+            font-size: 18px;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -636,7 +780,7 @@
             <a class="nav-link" onclick="showGames()">GAMES</a>
             <a class="nav-link" onclick="showStats()">STATS</a> 
             <a class="nav-link" onclick="showPredictions()">PREDICTION</a>
-            <a class="nav-link">TEAMS</a>
+            <a class="nav-link" onclick="showTeams()">TEAMS</a>
         </div>
     </nav>
 
@@ -952,7 +1096,112 @@
                         <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
                     </div>
 
-                     </div>
+                     <div class="matchup-container">
+                        <div class="matchup-block">
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg">
+                                <span>Nets</span> <small>15-38</small>
+                             </div>
+                             <div class="game-time-center">
+                                 <span class="game-date-val">Fri 20 Feb</span>
+                                 <span class="game-time-val">8:00 AM PHT</span>
+                                 <div class="matchup-buttons">
+                                     <div class="match-btn">Preview</div>
+                                     <div class="match-btn">Tickets</div>
+                                 </div>
+                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
+                             </div>
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg">
+                                <span>Cavaliers</span> <small>34-21</small>
+                             </div>
+                        </div>
+                        <div class="leaders-block">
+                            <div class="leaders-title">SEASON LEADERS</div>
+                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1629008.png" class="player-img"> <div class="player-info"><span class="player-name">Michael Porter Jr.</span><span class="player-team">BKN | #17 | F</span></div>
+                                <div class="player-stats"><span>25.0</span> <span>7.2</span> <span>3.2</span></div>
+                            </div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1628378.png" class="player-img"> <div class="player-info"><span class="player-name">Donovan Mitchell</span><span class="player-team">CLE | #45 | G</span></div>
+                                <div class="player-stats"><span>29.0</span> <span>4.5</span> <span>5.9</span></div>
+                            </div>
+                        </div>
+                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
+                    </div>
+
+                    <div class="matchup-container">
+                        <div class="matchup-block">
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg">
+                                <span>Hawks</span> <small>26-30</small>
+                             </div>
+                             <div class="game-time-center">
+                                 <span class="game-date-val">Fri 20 Feb</span>
+                                 <span class="game-time-val">8:00 AM PHT</span>
+                                 <div class="matchup-buttons">
+                                     <div class="match-btn">Preview</div>
+                                     <div class="match-btn">Tickets</div>
+                                 </div>
+                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
+                             </div>
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg">
+                                <span>76ers</span> <small>30-24</small>
+                             </div>
+                        </div>
+                        <div class="leaders-block">
+                            <div class="leaders-title">SEASON LEADERS</div>
+                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630552.png" class="player-img"> <div class="player-info"><span class="player-name">Jalen Johnson</span><span class="player-team">ATL | #1 | F</span></div>
+                                <div class="player-stats"><span>23.3</span> <span>10.6</span> <span>8.2</span></div>
+                            </div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1630178.png" class="player-img"> <div class="player-info"><span class="player-name">Tyrese Maxey</span><span class="player-team">PHI | #0 | G</span></div>
+                                <div class="player-stats"><span>28.9</span> <span>4.1</span> <span>6.8</span></div>
+                            </div>
+                        </div>
+                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
+                    </div>
+
+                    <div class="matchup-container">
+                        <div class="matchup-block">
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg">
+                                <span>Pacers</span> <small>15-40</small>
+                             </div>
+                             <div class="game-time-center">
+                                 <span class="game-date-val">Fri 20 Feb</span>
+                                 <span class="game-time-val">8:00 AM PHT</span>
+                                 <div class="matchup-buttons">
+                                     <div class="match-btn">Preview</div>
+                                     <div class="match-btn">Tickets</div>
+                                 </div>
+                                 <div style="margin-top:5px; font-size:11px; font-weight:bold;">▶ League Pass</div>
+                             </div>
+                             <div class="team-display">
+                                <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg">
+                                <span>Wizards</span> <small>14-39</small>
+                             </div>
+                        </div>
+                        <div class="leaders-block">
+                            <div class="leaders-title">SEASON LEADERS</div>
+                            <div class="stat-header"><span>PPG</span> <span>RPG</span> <span>APG</span></div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1627783.png" class="player-img"> <div class="player-info"><span class="player-name">Pascal Siakam</span><span class="player-team">IND | #43 | F</span></div>
+                                <div class="player-stats"><span>23.7</span> <span>6.7</span> <span>3.9</span></div>
+                            </div>
+                            <div class="player-row">
+                                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/1641708.png" class="player-img"> <div class="player-info"><span class="player-name">Alex Sarr</span><span class="player-team">WAS | #20 | C</span></div>
+                                <div class="player-stats"><span>17.2</span> <span>7.8</span> <span>2.8</span></div>
+                            </div>
+                        </div>
+                        <div class="lp-block"><img src="https://cdn.nba.com/logos/leagues/logo-nba.svg" class="lp-logo-small"></div>
+                    </div>
+
+                </div>
 
                 <div class="sidebar-column">
                     <div class="league-pass-promo">
@@ -1078,7 +1327,6 @@
             </div>
         </div>
 
-
         <div id="prediction-content">
              <div class="conference-wrapper">
                 <div class="conference-card">
@@ -1093,7 +1341,310 @@
             <div style="margin-top:20px; font-size:12px; color:#aaa;" id="model-stats"></div>
         </div>
 
+        <div id="teams-content">
+            <div class="teams-header-main">ALL TEAMS</div>
+            
+            <div class="teams-grid">
+                <div class="division-col">
+                    <div class="division-name">ATLANTIC</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Boston Celtics <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Brooklyn Nets <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">New York Knicks <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Philadelphia 76ers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Toronto Raptors <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="division-col">
+                    <div class="division-name">CENTRAL</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Chicago Bulls <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Cleveland Cavaliers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Detroit Pistons <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Indiana Pacers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Milwaukee Bucks <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="division-col">
+                    <div class="division-name">SOUTHEAST</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Atlanta Hawks <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Charlotte Hornets <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Miami Heat <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Orlando Magic <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Washington Wizards <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="division-col">
+                    <div class="division-name" style="margin-top:20px;">NORTHWEST</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Denver Nuggets <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Minnesota Timberwolves <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Oklahoma City Thunder <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Portland Trail Blazers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Utah Jazz <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="division-col">
+                    <div class="division-name" style="margin-top:20px;">PACIFIC</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Golden State Warriors <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">LA Clippers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Los Angeles Lakers <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Phoenix Suns <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Sacramento Kings <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="division-col">
+                    <div class="division-name" style="margin-top:20px;">SOUTHWEST</div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Dallas Mavericks <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Houston Rockets <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">Memphis Grizzlies <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">New Orleans Pelicans <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                    <div class="team-entry">
+                        <img src="https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg" class="team-img-sm">
+                        <div>
+                            <div class="team-name-txt">San Antonio Spurs <span class="ext-icon">↗</span></div>
+                            <div class="team-links-row"><a href="#">Profile</a><a href="#">Stats</a><a href="#">Schedule</a><a href="#">Tickets <span class="ext-icon">↗</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="foot-col">
+                <h4>NBA ORGANIZATION</h4>
+                <a href="#">NBA ID</a>
+                <a href="#">NBA Official</a>
+                <a href="#">NBA Careers</a>
+                <a href="#">NBA Fan Code of Conduct</a>
+            </div>
+            <div class="foot-col">
+                <h4>NBA INITIATIVES</h4>
+                <a href="#">NBA Total Health</a>
+                <a href="#">NBA Cares</a>
+                <a href="#">Jr. NBA / Jr. WNBA</a>
+                <a href="#">NBA Foundation</a>
+                <a href="#">Social Justice Coalition</a>
+            </div>
+            <div class="foot-col">
+                <h4>ACROSS THE LEAGUE</h4>
+                <a href="#">NBA Communications</a>
+                <a href="#">Lockervision</a>
+                <a href="#">NBA Transactions</a>
+            </div>
+            <div class="foot-col">
+                <h4>SHOP</h4>
+                <a href="#">Global Stores</a>
+                <a href="#">NYC Store</a>
+                <a href="#">NBA Auctions</a>
+                <a href="#">NBA Photostore</a>
+            </div>
+            <div class="foot-col">
+                <h4>SUBSCRIPTIONS</h4>
+                <a href="#"><span class="lp-badge">League Pass</span></a>
+                <a href="#">Customer Support</a>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+            <div class="foot-legal">
+                <p>© 2026 NBA Media Ventures, LLC. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">EEA/UK Privacy Statement</a> | 
+                    <a href="#">UK Tax Strategy Statement</a> | 
+                    <a href="#">Brazil Privacy Statement</a> | 
+                    <a href="#">Colorado Consumer Privacy Statement</a> | 
+                    <a href="#">California Consumer Privacy Statement</a> <br>
+                    <a href="#">Terms of Use</a> | 
+                    <a href="#">Cookie Policy</a> | 
+                    <a href="#">Accessibility and Closed Captions</a> | 
+                    <a href="#">Customer Support</a> | 
+                    <a href="#" style="color:white; font-weight:bold;">Manage Preferences</a>
+                    <br><br>
+                    If you are having difficulty accessing any content on this website, please visit our Accessibility page.
+                </div>
+            </div>
+            <div class="foot-socials">
+                <span>Facebook</span> <span>Instagram</span> <span>Snapchat</span> <span>TikTok</span> <span>X</span> <span>YouTube</span> <span>Twitch</span>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const teamIds = {
@@ -1151,7 +1702,6 @@
                     eastContainer.innerHTML = eastHTML;
                 }
                 
-                        // FIXED: Changed target_variable to target to match your JSON
                 if (data.model_metadata) {
                     document.getElementById('model-stats').innerHTML = 
                         `Accuracy: ${(data.model_metadata.accuracy * 100)}%`;
@@ -1162,33 +1712,45 @@
             }
         }
 
-
-        function showHome() {
-            document.getElementById('home-content').style.display = 'block';
+        function hideAllViews() {
+            document.getElementById('home-content').style.display = 'none';
             document.getElementById('prediction-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'none';
             document.getElementById('stats-content').style.display = 'none';
+            document.getElementById('teams-content').style.display = 'none';
+            
+            // Remove active classes from nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+        }
+
+        function showHome() {
+            hideAllViews();
+            document.getElementById('home-content').style.display = 'block';
         }
 
         function showPredictions() {
-            document.getElementById('home-content').style.display = 'none';
+            hideAllViews();
             document.getElementById('prediction-content').style.display = 'block';
-            document.getElementById('games-content').style.display = 'none';
-            document.getElementById('stats-content').style.display = 'none';
+            event.target.classList.add('active');
         }
 
         function showGames() {
-            document.getElementById('home-content').style.display = 'none';
-            document.getElementById('prediction-content').style.display = 'none';
+            hideAllViews();
             document.getElementById('games-content').style.display = 'block';
-            document.getElementById('stats-content').style.display = 'none';
+            event.target.classList.add('active');
         }
 
         function showStats() {
-            document.getElementById('home-content').style.display = 'none';
-            document.getElementById('prediction-content').style.display = 'none';
-            document.getElementById('games-content').style.display = 'none';
+            hideAllViews();
             document.getElementById('stats-content').style.display = 'block';
+            event.target.classList.add('active');
+        }
+        
+        function showTeams() {
+            hideAllViews();
+            document.getElementById('teams-content').style.display = 'block';
+            event.target.classList.add('active');
         }
 
         document.addEventListener('DOMContentLoaded', updateNBAOracle);
