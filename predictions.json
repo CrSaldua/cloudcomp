@@ -186,12 +186,6 @@
                 "win_pct": 0.264,
                 "playoff_prediction": "No",
                 "probability": 0.0
-            },
-            {
-                "team": "nan nan",
-                "win_pct": null,
-                "playoff_prediction": "Yes",
-                "probability": 0.86
             }
         ]
     }
