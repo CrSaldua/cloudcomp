@@ -155,7 +155,7 @@
                 "team": "Atlanta Hawks",
                 "win_pct": 0.464,
                 "playoff_prediction": "No",
-                "probability": 0.11
+                "probability": 0.12
             },
             {
                 "team": "Chicago Bulls",
@@ -191,3 +191,4 @@
     }
 
 }
+
